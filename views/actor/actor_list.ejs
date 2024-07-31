@@ -1,0 +1,23 @@
+<h1>List of Actors</h1>
+<ul>
+  <% actors.forEach(actor => { %>
+  <li>
+    <h2><%= actor.name %></h2>
+    <p>Age: <%= actor.age %></p>
+    <p>Nationality: <%= actor.nationality %></p>
+    <img src="<%= actor.picture %>" alt="<%= actor.name %>" />
+    <h3>Movies:</h3>
+    <ul>
+      <% actor.movies.forEach(movie => { %>
+      <li><%= movie %></li>
+      <% }); %>
+    </ul>
+  </li>
+  <% }); %>
+</ul>
+
+<!--
+TODO
+STYLE EACH ACTOR
+WRAP IN DIVS AS NEEDED, THIS IS CURRRENTLY JUST A SKELETON
+-->
