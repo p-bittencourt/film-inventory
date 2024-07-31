@@ -1,0 +1,18 @@
+<h1>List of Shows</h1>
+<ul>
+  <% shows.forEach(show => { %>
+  <li>
+    <h2><%= show.title %></h2>
+    <p>Summary: <%= show.summary %></p>
+    <p>Release Year: <%= show.release_year %></p>
+    <p>Director: <%= show.director %></p>
+    <img src="<%= show.poster %>" alt="<%= show.title %>" />
+    <h3>Cast:</h3>
+    <ul>
+      <% show.cast.forEach(actor => { %>
+      <li><%= actor.name %></li>
+      <% }); %>
+    </ul>
+  </li>
+  <% }); %>
+</ul>

@@ -1,0 +1,23 @@
+<h1>List of Directors</h1>
+<ul>
+  <% directors.forEach(director => { %>
+  <li>
+    <h2><%= director.name %></h2>
+    <p>Age: <%= director.age %></p>
+    <p>Nationality: <%= director.nationality %></p>
+    <img src="<%= director.picture %>" alt="<%= director.name %>" />
+    <h3>Movies:</h3>
+    <ul>
+      <% director.movies.forEach(movie => { %>
+      <li><%= movie %></li>
+      <% }); %>
+    </ul>
+  </li>
+  <% }); %>
+</ul>
+
+<!--
+TODO
+STYLE EACH ACTOR
+WRAP IN DIVS AS NEEDED, THIS IS CURRRENTLY JUST A SKELETON
+-->
