@@ -33,26 +33,17 @@ app.use(morgan('dev'));
 // Connect to the database
 mongoose.set('strictQuery', false);
 
-async function connectToDatabase(req, res, next) {
-  try {
-    await mongoose.connect(process.env.MONGODB_URI);
-    console.log('successfully connected to db');
-    next();
-  } catch (error) {
-    // TODO THINK ABOUT DIFFERENT APPROACHES TO ERROR HANDLING
-    // I'D LIKE THE APP TO CONNECT TO THE DB NOT AS A MIDDLEWARE,
-    // BUT AS SOON AS THE APP IS LAUNCHED
-    next(error);
-  }
+const mongoDB = process.env.MONGODB_URI;
+
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoDB);
 }
 
 const limiter = rateLimit({
   windowsMs: 1 * 60 * 100,
   max: 20,
 });
-
-// Call connectToDatabase and handle the error
-app.use(connectToDatabase);
 
 // Call limiter
 app.use(limiter);
