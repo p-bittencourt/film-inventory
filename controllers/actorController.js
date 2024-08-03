@@ -2,16 +2,6 @@ const Actor = require('../models/actor');
 const Movie = require('../models/movie');
 const asyncHandler = require('express-async-handler');
 
-// Helper functions
-async function getMoviesFeaturing(actor) {
-  const moviesByActor = [];
-  for (const movieId of actor.movies) {
-    const movie = await Movie.findById(movieId).exec();
-    moviesByActor.push(movie);
-  }
-  return moviesByActor;
-}
-
 // Display all actors
 exports.actor_list = asyncHandler(async (req, res, next) => {
   const allActors = await Actor.find().exec();
@@ -82,3 +72,13 @@ exports.actor_update = (req, res, next) => {
 exports.actor_delete = (req, res, next) => {
   res.send('actor delete not yet implemented');
 };
+
+// Helper functions
+async function getMoviesFeaturing(actor) {
+  const moviesByActor = [];
+  for (const movieId of actor.movies) {
+    const movie = await Movie.findById(movieId).exec();
+    moviesByActor.push(movie);
+  }
+  return moviesByActor;
+}
