@@ -2,9 +2,26 @@ const Actor = require('../models/actor');
 const Movie = require('../models/movie');
 const asyncHandler = require('express-async-handler');
 
+// Helper functions
+async function getMoviesFeaturing(actor) {
+  const moviesByActor = [];
+  for (const movieId of actor.movies) {
+    const movie = await Movie.findById(movieId).exec();
+    moviesByActor.push(movie);
+  }
+  return moviesByActor;
+}
+
 // Display all actors
 exports.actor_list = asyncHandler(async (req, res, next) => {
   const allActors = await Actor.find().exec();
+  const moviesByActor = [];
+  console.log(allActors);
+  // for (const actor in allActors) {
+  //   const movies = await getMoviesFeaturing(actor);
+  //   moviesByActor.push(movies);
+  // }
+  console.log(moviesByActor);
   res.render('./actor/actor_list', { actors: allActors });
 });
 
@@ -50,11 +67,7 @@ exports.actor_create_post = asyncHandler(async (req, res, next) => {
 exports.actor_detail = asyncHandler(async (req, res, next) => {
   const actor = await Actor.findById(req.params.id).exec();
 
-  const moviesByActor = [];
-  for (const movieId of actor.movies) {
-    const movie = await Movie.findById(movieId).exec();
-    moviesByActor.push(movie);
-  }
+  const moviesByActor = await getMoviesFeaturing(actor);
 
   res.render('./actor/actor_detail', { actor: actor, movies: moviesByActor });
 });

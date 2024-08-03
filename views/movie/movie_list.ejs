@@ -9,9 +9,9 @@
     <p>Director: <%= movie.director %></p>
     <img src="<%= movie.poster %>" alt="<%= movie.title %>" />
     <ul>
-      <% if (cast.length) {%>
+      <% if (cast) {%>
       <h3>Featuring:</h3>
-      <% if (cast[index].length) { %> <% cast[index].forEach(actor => { %>
+      <% if (cast[index]) { %> <% cast[index].forEach(actor => { %>
       <li><%= actor.name %></li>
       <% }); %> <% } else { %>
       <p>No cast registered</p>
