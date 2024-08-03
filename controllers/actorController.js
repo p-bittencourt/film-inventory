@@ -1,4 +1,5 @@
 const Actor = require('../models/actor');
+const Movie = require('../models/movie');
 const asyncHandler = require('express-async-handler');
 
 // Display all actors
@@ -8,9 +9,10 @@ exports.actor_list = asyncHandler(async (req, res, next) => {
 });
 
 // Get actor form
-exports.actor_create_get = (req, res, next) => {
-  res.render('./actor/actor_create');
-};
+exports.actor_create_get = asyncHandler(async (req, res, next) => {
+  const allMovies = await Movie.find().exec();
+  res.render('./actor/actor_create', { movies: allMovies });
+});
 
 // Post actor form
 exports.actor_create_post = asyncHandler(async (req, res, next) => {
@@ -25,6 +27,12 @@ exports.actor_create_post = asyncHandler(async (req, res, next) => {
     picture,
     movies,
   } = req.body;
+  let movieIds = [];
+  if (Array.isArray(movies)) {
+    movieIds = movies;
+  } else if (movies) {
+    movieIds = [movies];
+  }
   const actor = new Actor({
     first_name,
     family_name,
@@ -32,11 +40,11 @@ exports.actor_create_post = asyncHandler(async (req, res, next) => {
     date_of_death,
     nationality,
     picture,
-    // movies,
+    movies: movieIds,
   });
-  await actor.save();
-  console.log('actor saved');
-  res.redirect(actor.url);
+  // await actor.save();
+  console.log(actor);
+  // res.redirect(actor.url);
 });
 
 // Actor detail page

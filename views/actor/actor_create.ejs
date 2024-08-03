@@ -38,12 +38,11 @@
   </div>
   <div>
     <label for="movies">Movies:</label>
-    <input
-      type="text"
-      id="movies"
-      name="movies"
-      placeholder="Comma-separated movie IDs"
-    />
+    <select id="movies" name="movies" multiple>
+      <% movies.forEach(function(movie) { %>
+      <option value="<%= movie._id %>"><%= movie.title %></option>
+      <% }); %>
+    </select>
   </div>
   <div>
     <button type="submit">Create Actor</button>
