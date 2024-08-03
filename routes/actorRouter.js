@@ -1,7 +1,15 @@
 const router = require('express').Router();
-const Actor = require('../models/actor');
+const actor_controller = require('../controllers/actorController');
 
-// ACTOR ROUTES
+router.get('/', actor_controller.actor_list);
+
+router.get('/create', actor_controller.actor_create_get);
+
+router.post('/create', actor_controller.actor_create_post);
+
+router.get('/:id', actor_controller.actor_detail);
+
+module.exports = router;
 
 /* const testActors = [
   {
@@ -29,46 +37,3 @@ const Actor = require('../models/actor');
     url: '/actors/3',
   },
 ]; */
-
-router.get('/', async (req, res, next) => {
-  const allActors = await Actor.find().exec();
-  res.render('./actor/actor_list', { actors: allActors });
-});
-
-router.get('/create', (req, res, next) => {
-  res.render('./actor/actor_create');
-});
-
-router.post('/create', async (req, res, next) => {
-  try {
-    const {
-      first_name,
-      family_name,
-      date_of_birth,
-      date_of_death,
-      nationality,
-      picture,
-      movies,
-    } = req.body;
-    const actor = new Actor({
-      first_name,
-      family_name,
-      date_of_birth,
-      date_of_death,
-      nationality,
-      picture,
-      // movies: movies,
-    });
-    await actor.save();
-    console.log('actor saved');
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.get('/:id', async (req, res, next) => {
-  const actor = await Actor.findById(req.params.id).exec();
-  res.render('./actor/actor_detail', { actor: actor });
-});
-
-module.exports = router;
