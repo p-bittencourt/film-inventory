@@ -4,8 +4,10 @@ const router = express.Router();
 
 // import and use routers
 const actorRouter = require('./actorRouter');
+const movieRouter = require('./movieRouter');
 
 router.use('/actors', actorRouter);
+router.use('/movies', movieRouter);
 
 router.get('/', (req, res, next) => {
   res.render('index');
@@ -39,39 +41,6 @@ const testDirectors = [
 
 router.get('/directors', (req, res, next) => {
   res.render('./director/director_list', { directors: testDirectors });
-});
-
-// MOVIE ROUTES
-
-const testMovies = [
-  {
-    title: 'The Shawshank Redemption',
-    director: 'Frank Darabont',
-    summary:
-      'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.',
-    cast: ['Tim Robbins', 'Morgan Freeman'],
-    poster: 'https://example.com/shawshank.jpg',
-  },
-  {
-    title: 'The Godfather',
-    director: 'Francis Ford Coppola',
-    summary:
-      'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.',
-    cast: ['Marlon Brando', 'Al Pacino'],
-    poster: 'https://example.com/godfather.jpg',
-  },
-  {
-    title: 'Pulp Fiction',
-    director: 'Quentin Tarantino',
-    summary:
-      'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.',
-    cast: ['John Travolta', 'Samuel L. Jackson'],
-    poster: 'https://example.com/pulpfiction.jpg',
-  },
-];
-
-router.get('/movies', (req, res, next) => {
-  res.render('./movie/movie_list', { movies: testMovies });
 });
 
 // SHOW ROUTES

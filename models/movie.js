@@ -6,4 +6,4 @@ const MovieSchema = new Schema({
   title: { type: String, required: true },
 });
 
-module.exports('Movie', MovieSchema);
+module.exports = mongoose.model('Movie', MovieSchema);
