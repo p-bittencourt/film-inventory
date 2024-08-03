@@ -1,7 +1,6 @@
 const Movie = require('../models/movie');
 const Actor = require('../models/actor');
 const asyncHandler = require('express-async-handler');
-const movie = require('../models/movie');
 
 // Helper function
 async function getMovieCast(movie) {
