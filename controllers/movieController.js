@@ -1,25 +1,30 @@
 const Movie = require('../models/movie');
 const Actor = require('../models/actor');
 const asyncHandler = require('express-async-handler');
+const movie = require('../models/movie');
+
+// Helper function
+async function getMovieCast(movie) {
+  return await Actor.find({ movies: movie._id }).exec();
+}
 
 // Movie list
 exports.movie_list = asyncHandler(async (req, res, next) => {
   const allMovies = await Movie.find().exec();
-  res.render('./movie/movie_list', { movies: allMovies });
+  const movieCast = [];
+  for (eachMovie of allMovies) {
+    const cast = await getMovieCast(eachMovie);
+    movieCast.push(cast);
+  }
+  res.render('./movie/movie_list', { movies: allMovies, cast: movieCast });
 });
 
 // Movie detail
 exports.movie_detail = asyncHandler(async (req, res, next) => {
   const movie = await Movie.findById(req.params.id).exec();
+  const cast = await getMovieCast(movie);
 
-  const castIds = await Actor.find({ movies: movie._id }).select('name').exec();
-  const castObjects = [];
-  for (castId of castIds) {
-    const castObject = await Actor.findById(castId).exec();
-    castObjects.push(castObject);
-  }
-
-  res.render('./movie/movie_detail', { movie: movie, cast: castObjects });
+  res.render('./movie/movie_detail', { movie: movie, cast: cast });
 });
 
 // Movie create get
