@@ -1,13 +1,20 @@
 <h1>List of Actors</h1>
 <% if (actors.length) { %>
 <ul>
-  <% actors.forEach(actor => { %>
+  <% actors.forEach((actor, index) => { %>
   <li>
     <h2><a href="<%=actor.url%>"><%= actor.name %></a></h2>
     <p>Nationality: <%= actor.nationality %></p>
     <img src="<%= actor.picture %>" alt="<%= actor.name %>" />
-    <h3>Movies:</h3>
-    <p>Not yet implemented</p>
+    <ul>
+      <% if (movies) {%>
+      <h3>Featuring:</h3>
+      <% if (movies[index]) { %> <% movies[index].forEach(movie => { %>
+      <li><%= movie.title %></li>
+      <% }); %> <% } else { %>
+      <p>No movies registered</p>
+      <% } %> <% } %>
+    </ul>
   </li>
   <% }); %>
 </ul>

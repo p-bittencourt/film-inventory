@@ -16,13 +16,14 @@ async function getMoviesFeaturing(actor) {
 exports.actor_list = asyncHandler(async (req, res, next) => {
   const allActors = await Actor.find().exec();
   const moviesByActor = [];
-  console.log(allActors);
-  // for (const actor in allActors) {
-  //   const movies = await getMoviesFeaturing(actor);
-  //   moviesByActor.push(movies);
-  // }
-  console.log(moviesByActor);
-  res.render('./actor/actor_list', { actors: allActors });
+  for (const actor in allActors) {
+    const movie = await getMoviesFeaturing(allActors[actor]);
+    moviesByActor.push(movie);
+  }
+  res.render('./actor/actor_list', {
+    actors: allActors,
+    movies: moviesByActor,
+  });
 });
 
 // Get actor form
