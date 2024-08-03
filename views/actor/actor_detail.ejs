@@ -3,7 +3,11 @@
 <p>Nationality: <%= actor.nationality %></p>
 <img src="<%= actor.picture %>" alt="<%= actor.name %>" />
 <h3>Movies:</h3>
-<p>Not yet implemented</p>
+<% if (movies.length > 0) { %> <% movies.forEach(movie => { %>
+<p><%= movie.title %></p>
+<% }); %> <% } else { %>
+<p>No movies to display</p>
+<% } %>
 <!--
 <ul>
   <% // actor.movies.forEach(movie => { %>

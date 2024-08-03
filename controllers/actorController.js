@@ -42,15 +42,21 @@ exports.actor_create_post = asyncHandler(async (req, res, next) => {
     picture,
     movies: movieIds,
   });
-  // await actor.save();
-  console.log(actor);
-  // res.redirect(actor.url);
+  await actor.save();
+  res.redirect(actor.url);
 });
 
 // Actor detail page
 exports.actor_detail = asyncHandler(async (req, res, next) => {
   const actor = await Actor.findById(req.params.id).exec();
-  res.render('./actor/actor_detail', { actor: actor });
+
+  const moviesByActor = [];
+  for (const movieId of actor.movies) {
+    const movie = await Movie.findById(movieId).exec();
+    moviesByActor.push(movie);
+  }
+
+  res.render('./actor/actor_detail', { actor: actor, movies: moviesByActor });
 });
 
 // Actor updated
