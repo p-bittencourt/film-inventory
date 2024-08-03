@@ -3,17 +3,13 @@
 <ul>
   <% movies.forEach(movie => { %>
   <li>
-    <h2><%= movie.title %></h2>
+    <h2><a href="<%=movie.url%>"><%= movie.title %></a></h2>
     <p>Summary: <%= movie.summary %></p>
     <p>Release Year: <%= movie.release_year %></p>
     <p>Director: <%= movie.director %></p>
     <img src="<%= movie.poster %>" alt="<%= movie.title %>" />
     <h3>Cast:</h3>
-    <ul>
-      <% movie.cast.forEach(actor => { %>
-      <li><%= actor %></li>
-      <% }); %>
-    </ul>
+    <p>Not yet implemented</p>
   </li>
   <% }); %> <% } else { %>
   <p>There are no movies registered</p>

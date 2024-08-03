@@ -29,8 +29,7 @@ exports.movie_create_post = asyncHandler(async (req, res, next) => {
     summary,
     poster,
   });
-  // await movie.save();
-  console.log();
+  await movie.save();
   res.redirect(movie.url);
 });
 
