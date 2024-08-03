@@ -1,4 +1,5 @@
 const Movie = require('../models/movie');
+const Actor = require('../models/actor');
 const asyncHandler = require('express-async-handler');
 
 // Movie list
@@ -10,7 +11,15 @@ exports.movie_list = asyncHandler(async (req, res, next) => {
 // Movie detail
 exports.movie_detail = asyncHandler(async (req, res, next) => {
   const movie = await Movie.findById(req.params.id).exec();
-  res.render('./movie/movie_detail', { movie: movie });
+
+  const castIds = await Actor.find({ movies: movie._id }).select('name').exec();
+  const castObjects = [];
+  for (castId of castIds) {
+    const castObject = await Actor.findById(castId).exec();
+    castObjects.push(castObject);
+  }
+
+  res.render('./movie/movie_detail', { movie: movie, cast: castObjects });
 });
 
 // Movie create get

@@ -3,4 +3,8 @@
 <p>Summary: <%= movie.summary %></p>
 <img src="<%= movie.poster %>" alt="<%= movie.title %>" />
 <h3>Cast:</h3>
-<p>Not yet implemented</p>
+<% if (cast.length > 0) { %> <% cast.forEach(actor => { %>
+<p><%= actor.name %></p>
+<% }); %> <% } else { %>
+<p>No cast to display</p>
+<% } %>
