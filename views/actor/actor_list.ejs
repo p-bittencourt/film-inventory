@@ -2,16 +2,12 @@
 <ul>
   <% actors.forEach(actor => { %>
   <li>
-    <h2><%= actor.name %></h2>
+    <h2><a href="<%=actor.url%>"><%= actor.name %></a></h2>
     <p>Age: <%= actor.age %></p>
     <p>Nationality: <%= actor.nationality %></p>
     <img src="<%= actor.picture %>" alt="<%= actor.name %>" />
     <h3>Movies:</h3>
-    <ul>
-      <% actor.movies.forEach(movie => { %>
-      <li><%= movie %></li>
-      <% }); %>
-    </ul>
+    <p>Not yet implemented</p>
   </li>
   <% }); %>
 </ul>
@@ -20,4 +16,9 @@
 TODO
 STYLE EACH ACTOR
 WRAP IN DIVS AS NEEDED, THIS IS CURRRENTLY JUST A SKELETON
+<ul>
+  <% // actor.movies.forEach(movie => { %>
+    <li><%= // movie %></li>
+    <% // }); %>
+  </ul>
 -->

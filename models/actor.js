@@ -10,7 +10,7 @@ const ActorSchema = new Schema({
   date_of_death: { type: Date },
   nationality: { type: String },
   picture: { type: String }, // check for url as a pattern
-  movies: [{ type: Schema.Types.ObjectId, ref: 'Movie' }],
+  // movies: [{ type: Schema.Types.ObjectId, ref: 'Movie' }],
 });
 
 // Virtual for actor's full name
@@ -49,4 +49,4 @@ ActorSchema.virtual('age').get(function () {
 });
 
 // Export the model
-module.exports = mognoose.model('Actor', ActorSchema);
+module.exports = mongoose.model('Actor', ActorSchema);

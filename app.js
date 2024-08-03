@@ -38,6 +38,7 @@ const mongoDB = process.env.MONGODB_URI;
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB);
+  console.log('Successfully connected to db');
 }
 
 const limiter = rateLimit({
