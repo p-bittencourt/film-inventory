@@ -18,3 +18,20 @@
 <% }); %> <% } else { %>
 <p>No cast to display</p>
 <% } %>
+<div class="card-buttons">
+  <a href="/movies/edit/<%= movie.id %>"><button>Edit</button></a>
+  <form
+    action="/movies/<%= movie.id %>?_method=DELETE"
+    method="post"
+    style="display: inline"
+    onsubmit="return confirmDelete();"
+  >
+    <button type="submit">Delete</button>
+  </form>
+</div>
+
+<script>
+  function confirmDelete() {
+    return confirm('Are you sure you want to delete?');
+  }
+</script>

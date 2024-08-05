@@ -17,7 +17,10 @@ exports.movie_list = asyncHandler(async (req, res, next) => {
     const cast = await getMovieCast(eachMovie);
     movieCast.push(cast);
   }
-  res.render('./movie/movie_list', { movies: allMovies, cast: movieCast });
+  res.render('./movie/movie_list', {
+    movies: allMovies,
+    cast: movieCast,
+  });
 });
 
 // Movie detail
@@ -30,7 +33,7 @@ exports.movie_detail = asyncHandler(async (req, res, next) => {
 
 // Movie create get
 exports.movie_create_get = (req, res, next) => {
-  res.render('./movie/movie_create');
+  res.render('./movie/movie_create', { movie: '' });
 };
 
 // Movie create post
@@ -49,11 +52,26 @@ exports.movie_create_post = asyncHandler(async (req, res, next) => {
 });
 
 // Movie updated
-exports.movie_update = (req, res, next) => {
-  res.send('movie update not yet implemented');
-};
+exports.movie_update_get = asyncHandler(async (req, res, next) => {
+  const movie = await Movie.findById(req.params.id);
+  res.render('./movie/movie_create', { movie: movie });
+});
+
+exports.movie_update_post = asyncHandler(async (req, res, next) => {
+  const { title, release_date, summary, picture } = req.body;
+  const movie = new Movie({
+    title,
+    release_date,
+    summary,
+    picture,
+    _id: req.params.id,
+  });
+  const updatedMovie = await Movie.findByIdAndUpdate(req.params.id, movie, {});
+  res.redirect(updatedMovie.url);
+});
 
 // Movie delete
-exports.movie_delete = (req, res, next) => {
-  res.send('movie delete not yet implemented');
-};
+exports.movie_delete = asyncHandler(async (req, res, next) => {
+  await Movie.findByIdAndDelete(req.params.id);
+  res.redirect('/movies');
+});

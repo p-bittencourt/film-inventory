@@ -97,7 +97,7 @@ exports.actor_update_post = asyncHandler(async (req, res, next) => {
     _id: req.params.id,
   });
   const updatedActor = await Actor.findByIdAndUpdate(req.params.id, actor, {});
-  res.redirect(actor.url);
+  res.redirect(updatedActor.url);
 });
 
 // Actor delete
