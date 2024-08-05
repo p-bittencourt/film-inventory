@@ -8,8 +8,9 @@
     <p>Age: <%= actor.age %></p>
     <% } %> <% if (actor.nationality) { %>
     <p>Nationality: <%= actor.nationality %></p>
-    <% } %>
+    <% } %> <% if (actor.picture) { %>
     <img src="<%= actor.picture %>" alt="<%= actor.name %>" />
+    <% } %>
     <ul>
       <% if (movies.length) {%> <% if (movies[index].length) { %>
       <h3>Seen in:</h3>

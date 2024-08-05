@@ -9,7 +9,18 @@ const ActorSchema = new Schema({
   date_of_birth: { type: Date },
   date_of_death: { type: Date },
   nationality: { type: String },
-  picture: { type: String }, // check for url as a pattern
+  picture: {
+    type: String,
+    validate: {
+      validator: function (v) {
+        // Allow empty strings
+        if (v === '') return true;
+        // Valide URL pattenr
+        return /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid URL!`,
+    },
+  },
   movies: [{ type: Schema.Types.ObjectId, ref: 'Movie' }],
 });
 
