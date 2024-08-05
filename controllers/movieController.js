@@ -1,5 +1,6 @@
 const Movie = require('../models/movie');
 const Actor = require('../models/actor');
+const { body, validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 
 // Helper function
@@ -37,19 +38,56 @@ exports.movie_create_get = (req, res, next) => {
 };
 
 // Movie create post
-exports.movie_create_post = asyncHandler(async (req, res, next) => {
-  // Implement form handling
-  // Implement error handling
-  const { title, release_date, summary, picture } = req.body;
-  const movie = new Movie({
-    title,
-    release_date,
-    summary,
-    picture,
-  });
-  await movie.save();
-  res.redirect(movie.url);
-});
+exports.movie_create_post = [
+  // Validate and sanitize fields
+  body('title')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Title is required.'),
+  body('summary')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Summary is required.'),
+  body('release_date')
+    .optional({ checkFalsy: true })
+    .isISO8601()
+    .toDate()
+    .withMessage('Invalid release date'),
+  body('picture')
+    .trim()
+    .optional({ checkFalsy: true })
+    .isURL()
+    .withMessage('Invalid url'),
+
+  // Process request after validation and sanitization
+  asyncHandler(async (req, res, next) => {
+    // Extract validation errors from a request
+    const errors = validationResult(req);
+
+    const { title, release_date, summary, picture } = req.body;
+    const movie = new Movie({
+      title,
+      release_date,
+      summary,
+      picture,
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitzed value/errors messages.
+      res.render('./movie/movie_create', {
+        movie: movie,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Data is valid. Save actor
+      await movie.save();
+      res.redirect(movie.url);
+    }
+  }),
+];
 
 // Movie updated
 exports.movie_update_get = asyncHandler(async (req, res, next) => {
@@ -57,18 +95,59 @@ exports.movie_update_get = asyncHandler(async (req, res, next) => {
   res.render('./movie/movie_create', { movie: movie });
 });
 
-exports.movie_update_post = asyncHandler(async (req, res, next) => {
-  const { title, release_date, summary, picture } = req.body;
-  const movie = new Movie({
-    title,
-    release_date,
-    summary,
-    picture,
-    _id: req.params.id,
-  });
-  const updatedMovie = await Movie.findByIdAndUpdate(req.params.id, movie, {});
-  res.redirect(updatedMovie.url);
-});
+exports.movie_update_post = [
+  // Validate and sanitize fields
+  body('title')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Title is required.'),
+  body('summary')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Summary is required.'),
+  body('release_date')
+    .optional({ checkFalsy: true })
+    .isISO8601()
+    .toDate()
+    .withMessage('Invalid release date'),
+  body('picture')
+    .trim()
+    .optional({ checkFalsy: true })
+    .isURL()
+    .withMessage('Invalid url'),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    const { title, release_date, summary, picture } = req.body;
+    const movie = new Movie({
+      title,
+      release_date,
+      summary,
+      picture,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitzed value/errors messages.
+      res.render('./movie/movie_create', {
+        movie: movie,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Data is valid. Save actor
+      const updatedMovie = await Movie.findByIdAndUpdate(
+        req.params.id,
+        movie,
+        {}
+      );
+      res.redirect(updatedMovie.url);
+    }
+  }),
+];
 
 // Movie delete
 exports.movie_delete = asyncHandler(async (req, res, next) => {
