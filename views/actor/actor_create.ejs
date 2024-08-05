@@ -1,4 +1,4 @@
-<h1>Create Actor</h1>
+<h1><%= actor ? 'Edit Actor' : 'Create Actor' %></h1>
 <form method="post">
   <div>
     <label for="first_name">First Name:</label>
@@ -69,6 +69,6 @@
     </select>
   </div>
   <div>
-    <button type="submit">Create Actor</button>
+    <button type="submit"><%= actor ? 'Update' : 'Create' %></button>
   </div>
 </form>

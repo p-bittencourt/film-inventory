@@ -20,7 +20,7 @@ exports.actor_list = asyncHandler(async (req, res, next) => {
 // Get actor form
 exports.actor_create_get = asyncHandler(async (req, res, next) => {
   const allMovies = await Movie.find().exec();
-  res.render('./actor/actor_create', { movies: allMovies });
+  res.render('./actor/actor_create', { actor: '', movies: allMovies });
 });
 
 // Post actor form
