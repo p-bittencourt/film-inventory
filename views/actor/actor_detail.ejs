@@ -4,7 +4,7 @@
 <% } %> <% if (actor.nationality) { %>
 <p>Nationality: <%= actor.nationality %></p>
 <% } %> <% if (actor.picture) { %>
-<img src="<%= actor.picture %>" alt="<%= actor.name %>" />
+<img src="<%= actor.picture %>" alt="<%= actor.name %>" class="resized-image" />
 <% } %>
 <h3>Movies:</h3>
 <% if (movies.length > 0) { %> <% movies.forEach(movie => { %>

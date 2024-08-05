@@ -11,7 +11,11 @@
     <% } %> <% if (movie.director) { %>
     <p>Director: <%= movie.director %></p>
     <% } %> <% if (movie.picture) { %>
-    <img src="<%= movie.picture %>" alt="<%= movie.title %>" />
+    <img
+      src="<%= movie.picture %>"
+      alt="<%= movie.title %>"
+      class="resized-image"
+    />
     <% } %>
     <ul>
       <% if (cast.length) {%> <% if (cast[index].length) { %>
