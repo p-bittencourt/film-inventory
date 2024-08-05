@@ -37,12 +37,12 @@ exports.movie_create_get = (req, res, next) => {
 exports.movie_create_post = asyncHandler(async (req, res, next) => {
   // Implement form handling
   // Implement error handling
-  const { title, release_date, summary, poster } = req.body;
+  const { title, release_date, summary, picture } = req.body;
   const movie = new Movie({
     title,
     release_date,
     summary,
-    poster,
+    picture,
   });
   await movie.save();
   res.redirect(movie.url);

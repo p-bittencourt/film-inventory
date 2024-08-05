@@ -5,8 +5,8 @@
 <p>Release Year: <%= movie.release_year %></p>
 <% } %> <% if (movie.director) { %>
 <p>Director: <%= movie.director %></p>
-<% } %> <% if (movie.poster) { %>
-<img src="<%= movie.poster %>" alt="<%= movie.title %>" />
+<% } %> <% if (movie.picture) { %>
+<img src="<%= movie.picture %>" alt="<%= movie.title %>" />
 <% } %>
 <h3>Cast:</h3>
 <% if (cast.length > 0) { %> <% cast.forEach(actor => { %>

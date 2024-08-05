@@ -6,7 +6,7 @@ const MovieSchema = new Schema({
   title: { type: String, required: true, maxLength: 100 },
   release_date: { type: String },
   summary: { type: String, maxLength: 250 },
-  poster: {
+  picture: {
     type: String,
     validate: {
       validator: function (v) {
