@@ -9,7 +9,9 @@ async function getMovieCast(movie) {
 
 // Movie list
 exports.movie_list = asyncHandler(async (req, res, next) => {
+  // get all movies from the db
   const allMovies = await Movie.find().exec();
+  // loop through the movies and get the cast from each one to send to the view
   const movieCast = [];
   for (eachMovie of allMovies) {
     const cast = await getMovieCast(eachMovie);

@@ -4,9 +4,13 @@
   <% movies.forEach((movie, index) => { %>
   <li>
     <h2><a href="<%=movie.url%>"><%= movie.title %></a></h2>
+    <% if (movie.summary) { %>
     <p>Summary: <%= movie.summary %></p>
+    <% } %> <% if (movie.release_year) { %>
     <p>Release Year: <%= movie.release_year %></p>
+    <% } %> <% if (movie.director) { %>
     <p>Director: <%= movie.director %></p>
+    <% } %>
     <img src="<%= movie.poster %>" alt="<%= movie.title %>" />
     <ul>
       <% if (cast.length) {%> <% if (cast[index].length) { %>

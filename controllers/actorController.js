@@ -6,6 +6,7 @@ const asyncHandler = require('express-async-handler');
 exports.actor_list = asyncHandler(async (req, res, next) => {
   const allActors = await Actor.find().exec();
   const moviesByActor = [];
+  // loop through all actors in the list to get the movies they feature in
   for (const actor in allActors) {
     const movie = await getMoviesFeaturing(allActors[actor]);
     moviesByActor.push(movie);
@@ -57,7 +58,6 @@ exports.actor_create_post = asyncHandler(async (req, res, next) => {
 // Actor detail page
 exports.actor_detail = asyncHandler(async (req, res, next) => {
   const actor = await Actor.findById(req.params.id).exec();
-
   const moviesByActor = await getMoviesFeaturing(actor);
 
   res.render('./actor/actor_detail', { actor: actor, movies: moviesByActor });

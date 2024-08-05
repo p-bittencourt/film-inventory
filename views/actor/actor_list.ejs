@@ -4,7 +4,9 @@
   <% actors.forEach((actor, index) => { %>
   <li>
     <h2><a href="<%=actor.url%>"><%= actor.name %></a></h2>
-    <% if (actor.nationality) { %>
+    <% if (actor.age) { %>
+    <p>Age: <%= actor.age %></p>
+    <% } %> <% if (actor.nationality) { %>
     <p>Nationality: <%= actor.nationality %></p>
     <% } %>
     <img src="<%= actor.picture %>" alt="<%= actor.name %>" />
