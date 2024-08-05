@@ -101,9 +101,10 @@ exports.actor_update_post = asyncHandler(async (req, res, next) => {
 });
 
 // Actor delete
-exports.actor_delete = (req, res, next) => {
-  res.send('actor delete not yet implemented');
-};
+exports.actor_delete = asyncHandler(async (req, res, next) => {
+  await Actor.findByIdAndDelete(req.params.id);
+  res.redirect('/actors');
+});
 
 // Helper functions
 async function getMoviesFeaturing(actor) {

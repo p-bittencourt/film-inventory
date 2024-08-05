@@ -19,6 +19,19 @@
   <% } %>
   <div class="card-buttons">
     <a href="/actors/edit/<%= actor.id %>"><button>Edit</button></a>
-    <button>Delete</button>
+    <form
+      action="/actors/<%= actor.id %>?_method=DELETE"
+      method="post"
+      style="display: inline"
+      onsubmit="return confirmDelete();"
+    >
+      <button type="submit">Delete</button>
+    </form>
   </div>
 </div>
+
+<script>
+  function confirmDelete() {
+    return confirm('Are you sure you want to delete?');
+  }
+</script>

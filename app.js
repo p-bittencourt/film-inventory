@@ -6,6 +6,7 @@ const path = require('path');
 const expressLayout = require('express-ejs-layouts');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 require('dotenv').config();
 
 // Routers
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
 // Set up middleware
+app.use(methodOverride('_method'));
 app.use(morgan('dev'));
 
 // TODO Deployment middleware

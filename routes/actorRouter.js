@@ -11,6 +11,8 @@ router.get('/edit/:id', actor_controller.actor_update_get);
 
 router.post('/edit/:id', actor_controller.actor_update_post);
 
+router.delete('/:id', actor_controller.actor_delete);
+
 router.get('/:id', actor_controller.actor_detail);
 
 module.exports = router;
