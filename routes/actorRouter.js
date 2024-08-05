@@ -7,6 +7,10 @@ router.get('/create', actor_controller.actor_create_get);
 
 router.post('/create', actor_controller.actor_create_post);
 
+router.get('/edit/:id', actor_controller.actor_update_get);
+
+router.post('/edit/:id', actor_controller.actor_update_post);
+
 router.get('/:id', actor_controller.actor_detail);
 
 module.exports = router;

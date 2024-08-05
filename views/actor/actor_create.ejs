@@ -1,5 +1,5 @@
 <h1>Create Actor</h1>
-<form action="/actors/create" method="post">
+<form method="post">
   <div>
     <label for="first_name">First Name:</label>
     <input
@@ -8,6 +8,7 @@
       name="first_name"
       required
       maxlength="100"
+      value="<%= actor ? actor.first_name : '' %>"
     />
   </div>
   <div>
@@ -18,29 +19,52 @@
       name="family_name"
       required
       maxlength="100"
+      value="<%= actor ? actor.family_name : '' %>"
     />
   </div>
   <div>
     <label for="date_of_birth">Date of Birth:</label>
-    <input type="date" id="date_of_birth" name="date_of_birth" />
+    <input
+      type="date"
+      id="date_of_birth"
+      name="date_of_birth"
+      value="<%= actor ?
+    actor.date_of_birth : '' %>"
+    />
   </div>
   <div>
     <label for="date_of_death">Date of Death:</label>
-    <input type="date" id="date_of_death" name="date_of_death" />
+    <input
+      type="date"
+      id="date_of_death"
+      name="date_of_death"
+      value="<%= actor ?
+    actor.date_of_death : '' %>"
+    />
   </div>
   <div>
     <label for="nationality">Nationality:</label>
-    <input type="text" id="nationality" name="nationality" />
+    <input
+      type="text"
+      id="nationality"
+      name="nationality"
+      value="<%= actor ? actor.nationality : '' %>"
+    />
   </div>
   <div>
     <label for="picture">Picture URL:</label>
-    <input type="url" id="picture" name="picture" />
+    <input
+      type="url"
+      id="picture"
+      name="picture"
+      value="<%= actor ? actor.picture : '' %>"
+    />
   </div>
   <div>
     <label for="movies">Movies:</label>
     <select id="movies" name="movies" multiple>
       <% movies.forEach(function(movie) { %>
-      <option value="<%= movie._id %>"><%= movie.title %></option>
+        <option value="<%= movie._id %>" <%= actor && actor.movies.includes(movie._id) ? 'selected' : '' %>><%= movie.title %></option>
       <% }); %>
     </select>
   </div>
