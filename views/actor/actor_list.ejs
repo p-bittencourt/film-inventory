@@ -19,7 +19,7 @@
       <% if (movies.length) {%> <% if (movies[index].length) { %>
       <h3>Seen in:</h3>
       <% movies[index].forEach(movie => { %>
-      <li><%= movie.title %></li>
+      <li><a href="<%=movie.url%>"><%= movie.title %></a></li>
       <% }); %> <% } else { %>
       <p>No movies registered</p>
       <% } %> <% } %>
@@ -30,14 +30,3 @@
 <% } else { %>
 <p>There are no actors registered</p>
 <% } %>
-
-<!--
-TODO
-STYLE EACH ACTOR
-WRAP IN DIVS AS NEEDED, THIS IS CURRRENTLY JUST A SKELETON
-<ul>
-  <% // actor.movies.forEach(movie => { %>
-    <li><%= // movie %></li>
-    <% // }); %>
-  </ul>
--->

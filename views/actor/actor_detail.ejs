@@ -8,7 +8,7 @@
 <% } %>
 <h3>Movies:</h3>
 <% if (movies.length > 0) { %> <% movies.forEach(movie => { %>
-<p><%= movie.title %></p>
+<p><a href="<%=movie.url%>"><%= movie.title %></a></p>
 <% }); %> <% } else { %>
 <p>No movies to display</p>
 <% } %>

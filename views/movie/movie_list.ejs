@@ -21,7 +21,7 @@
       <% if (cast.length) {%> <% if (cast[index].length) { %>
       <h3>Featuring:</h3>
       <% cast[index].forEach(actor => { %>
-      <li><%= actor.name %></li>
+      <li><a href="<%=actor.url%>"><%= actor.name %></a></li>
       <% }); %> <% } else { %>
       <p>No cast registered</p>
       <% } %> <% } %>
