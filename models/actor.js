@@ -38,13 +38,21 @@ ActorSchema.virtual('age').get(function () {
   if (!this.date_of_birth) {
     return age;
   }
-  if (!this.date_of_death) {
-    let today = new Date();
-    age = this.date_of_birth - today;
-  } else {
-    let ageOfPassing = this.date_of_birth - this.date_of_death;
-    age = `Passed at the age of ${ageOfPassing}`;
+  const birthDate = new Date(this.date_of_birth);
+  let endDate = new Date();
+  if (this.date_of_death) {
+    endDate = new Date(this.date_of_death);
   }
+  const ageInMilliseconds = endDate - birthDate;
+  const ageInYears = Math.floor(
+    ageInMilliseconds / (1000 * 60 * 60 * 24 * 365.25)
+  );
+  if (this.date_of_death) {
+    age = `Passed at the age of ${ageInYears}`;
+  } else {
+    age = ageInYears;
+  }
+
   return age;
 });
 
