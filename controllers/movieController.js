@@ -1,5 +1,6 @@
 const Movie = require('../models/movie');
 const Actor = require('../models/actor');
+const Genre = require('../models/genre');
 const { body, validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 
@@ -33,9 +34,10 @@ exports.movie_detail = asyncHandler(async (req, res, next) => {
 });
 
 // Movie create get
-exports.movie_create_get = (req, res, next) => {
-  res.render('./movie/movie_create', { movie: '' });
-};
+exports.movie_create_get = asyncHandler(async (req, res, next) => {
+  const allGenres = await Genre.find().exec();
+  res.render('./movie/movie_create', { movie: '', genres: allGenres });
+});
 
 // Movie create post
 exports.movie_create_post = [
@@ -66,13 +68,16 @@ exports.movie_create_post = [
     // Extract validation errors from a request
     const errors = validationResult(req);
 
-    const { title, release_date, summary, picture } = req.body;
+    const { title, release_date, summary, picture, genre } = req.body;
     const movie = new Movie({
       title,
       release_date,
       summary,
       picture,
+      genre,
     });
+
+    console.log(movie);
 
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitzed value/errors messages.
@@ -92,7 +97,8 @@ exports.movie_create_post = [
 // Movie updated
 exports.movie_update_get = asyncHandler(async (req, res, next) => {
   const movie = await Movie.findById(req.params.id);
-  res.render('./movie/movie_create', { movie: movie });
+  const allGenres = await Genre.find().exec();
+  res.render('./movie/movie_create', { movie: movie, genres: allGenres });
 });
 
 exports.movie_update_post = [
@@ -121,12 +127,13 @@ exports.movie_update_post = [
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
 
-    const { title, release_date, summary, picture } = req.body;
+    const { title, release_date, summary, picture, genre } = req.body;
     const movie = new Movie({
       title,
       release_date,
       summary,
       picture,
+      genre,
       _id: req.params.id,
     });
 

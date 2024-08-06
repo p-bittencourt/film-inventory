@@ -41,6 +41,14 @@
     />
   </div>
   <div>
+    <label for="genre">Genre:</label>
+    <select id="genre" name="genre" multiple>
+      <% genres.forEach(function(genre) { %>
+        <option value="<%= genre._id %>" <%= movie && movie.genre.includes(genre._id) ? 'selected' : '' %>><%= genre.name %></option>
+      <% }); %>
+    </select>
+  </div>
+  <div>
     <button type="submit"><%= movie ? 'Update' : 'Create' %></button>
   </div>
 </form>

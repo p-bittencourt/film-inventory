@@ -1,6 +1,11 @@
 <div class="genre-card">
   <h1><%= genre.name %></h1>
-  <!-- implemente a way to see all movies from a genre -->
+  <h3>Movies in this genre:</h3>
+  <% if (movies.length > 0) { %> <% movies.forEach(movie => { %>
+  <p><a href="<%=movie.url%>"><%= movie.title %></a></p>
+  <% }); %> <% } else { %>
+  <p>No movies to display</p>
+  <% } %>
   <div class="card-buttons">
     <a href="/genres/edit/<%= genre.id %>"><button>Edit</button></a>
     <form
