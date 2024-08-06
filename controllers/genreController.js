@@ -94,6 +94,12 @@ exports.genre_update_post = [
 
 // Genre delete
 exports.genre_delete = asyncHandler(async (req, res, next) => {
-  await Genre.findByIdAndDelete(req.params.id);
+  const genreId = req.params.id;
+  await Movie.updateMany(
+    { genre: genreId },
+    { $pull: { genre: genreId } }
+  ).exec();
+
+  await Genre.findByIdAndDelete(genreId);
   res.redirect('/genres');
 });
