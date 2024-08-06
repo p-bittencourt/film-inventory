@@ -91,8 +91,6 @@ exports.movie_create_post = [
       genre,
     });
 
-    console.log(movie);
-
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitzed value/errors messages.
       res.render('./movie/movie_create', {
