@@ -27,4 +27,14 @@ MovieSchema.virtual('url').get(function () {
   return `/movies/${this._id}`;
 });
 
+// Pre-remove middleware to handle cascading deletes
+MovieSchema.pre('remove', async function (next) {
+  const movieId = this._id;
+  await mongoose
+    .model('Actor')
+    .updateMany({ movies: movieId }, { $pull: { movies: movieId } })
+    .exec();
+  next();
+});
+
 module.exports = mongoose.model('Movie', MovieSchema);

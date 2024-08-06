@@ -170,6 +170,12 @@ exports.movie_update_post = [
 
 // Movie delete
 exports.movie_delete = asyncHandler(async (req, res, next) => {
-  await Movie.findByIdAndDelete(req.params.id);
+  const movieId = req.params.id;
+  await Actor.updateMany(
+    { movies: movieId },
+    { $pull: { movies: movieId } }
+  ).exec();
+
+  await Movie.findByIdAndDelete(movieId);
   res.redirect('/movies');
 });
