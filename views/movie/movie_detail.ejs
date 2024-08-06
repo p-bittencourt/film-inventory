@@ -6,9 +6,11 @@
   <p>Release Year: <%= movie.release_year %></p>
   <% } %> <% if (movie.director) { %>
   <p>Director: <%= movie.director %></p>
-  <% } %> <% if (movie.genre) { %>
-  <p>Genre: <%= movie.genre %></p>
-  <% } %> <% if (movie.picture) { %>
+  <% } %> <% if (genres.length) { %> <% genres.forEach(genre => { %>
+  <a href="<%= genre.url %>">
+    <p style="display: inline">- <%= genre.name %></p></a
+  >
+  <% }) %> <% } %> <% if (movie.picture) { %>
   <img
     src="<%= movie.picture %>"
     alt="<%= movie.title %>"

@@ -9,6 +9,15 @@ async function getMovieCast(movie) {
   return await Actor.find({ movies: movie._id }).exec();
 }
 
+async function getGenreObjects(genres) {
+  const genreNames = [];
+  for (const genre in genres) {
+    const genreName = await Genre.findById(genres[genre]).exec();
+    genreNames.push(genreName);
+  }
+  return genreNames;
+}
+
 // Movie list
 exports.movie_list = asyncHandler(async (req, res, next) => {
   // get all movies from the db
@@ -29,8 +38,13 @@ exports.movie_list = asyncHandler(async (req, res, next) => {
 exports.movie_detail = asyncHandler(async (req, res, next) => {
   const movie = await Movie.findById(req.params.id).exec();
   const cast = await getMovieCast(movie);
+  const genres = await getGenreObjects(movie.genre);
 
-  res.render('./movie/movie_detail', { movie: movie, cast: cast });
+  res.render('./movie/movie_detail', {
+    movie: movie,
+    cast: cast,
+    genres: genres,
+  });
 });
 
 // Movie create get
