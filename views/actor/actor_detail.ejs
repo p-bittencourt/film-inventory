@@ -19,13 +19,17 @@
   <% } %>
   <div class="card-buttons">
     <a href="/actors/edit/<%= actor.id %>"><button>Edit</button></a>
+    <button type="button" onclick="showPasswordField()">Delete</button>
     <form
+      id="deleteForm"
       action="/actors/<%= actor.id %>?_method=DELETE"
       method="post"
-      style="display: inline"
-      onsubmit="return confirmDelete();"
+      style="display: none; margin-top: 10px"
+      onsubmit="handleDelete(event);"
     >
-      <button type="submit">Delete</button>
+      <label for="password">Enter password:</label>
+      <input type="password" name="password" id="password" required />
+      <button type="submit">Confirm Delete</button>
     </form>
   </div>
 </div>
