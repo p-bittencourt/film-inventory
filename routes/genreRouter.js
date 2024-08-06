@@ -8,8 +8,10 @@ router.get('/create', genre_controller.genre_create_get);
 router.post('/create', genre_controller.genre_create_post);
 
 // update get
+router.get('/edit/:id', genre_controller.genre_update_get);
 
 // update post
+router.post('/edit/:id', genre_controller.genre_update_post);
 
 // delete
 
