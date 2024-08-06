@@ -35,9 +35,19 @@ exports.genre_create_post = [
       });
       return;
     } else {
-      // Data is valid
-      await genre.save();
-      res.redirect(genre.url);
+      // Check if a genre with the same name already exists
+      const existingGenre = await Genre.findOne({ name: req.body.name }).exec();
+      if (existingGenre) {
+        res.render('./genre/genre_create', {
+          genre: genre,
+          errors: [{ msg: 'Genre with this name already exists.' }],
+        });
+        return;
+      } else {
+        // Data is valid and no genre with the same name
+        await genre.save();
+        res.redirect(genre.url);
+      }
     }
   }),
 ];
