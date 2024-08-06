@@ -27,3 +27,9 @@ main {
   height: 225px;
   object-fit: cover;
 }
+
+.resized-image-detail {
+  width: 300px;
+  height: 450px;
+  object-fit: cover;
+}
