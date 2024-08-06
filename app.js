@@ -54,6 +54,18 @@ app.use(limiter);
 // Routes
 app.use('/', indexRouter);
 
+// Password validation for deleting
+const SYSTEM_PASSWORD = process.env.SYSTEM_PASSWORD;
+
+app.post('/check-password', (req, res) => {
+  const { password } = req.body;
+  if (password === SYSTEM_PASSWORD) {
+    res.json({ success: true });
+  } else {
+    res.json({ success: false });
+  }
+});
+
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
