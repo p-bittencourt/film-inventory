@@ -1,0 +1,15 @@
+<div class="genre-card">
+  <h1><%= genre.name %></h1>
+  <!-- implemente a way to see all movies from a genre -->
+  <div class="card-buttons">
+    <a href="/genres/edit/<%= genre.id %>"><button>Edit</button></a>
+    <form
+      action="/genres/<%= genre.id %>?_method=DELETE"
+      method="post"
+      style="display: inline"
+      onsubmit="return confirmDelete();"
+    >
+      <button type="submit">Delete</button>
+    </form>
+  </div>
+</div>

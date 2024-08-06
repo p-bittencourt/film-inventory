@@ -1,12 +1,12 @@
 <h1>List of Genres</h1>
+<% if (genres.length) { %>
 <ul>
   <% genres.forEach(genre => { %>
   <li>
-    <h3><%= genre.name %></h3>
+    <a href="/genres/<%= genre._id %>"><h3><%= genre.name %></h3></a>
   </li>
   <% }); %>
 </ul>
-
-<!-- 
-Implement a way to see all movies from a genre
--->
+<% } else { %>
+<p>There are no kinds of genre registered</p>
+<% } %>

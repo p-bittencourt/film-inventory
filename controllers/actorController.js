@@ -96,7 +96,6 @@ exports.actor_create_post = [
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitzed value/errors messages.
       const allMovies = await Movie.find().exec();
-      console.log(errors);
       res.render('./actor/actor_create', {
         actor: actor,
         movies: allMovies,

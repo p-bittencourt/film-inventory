@@ -5,10 +5,13 @@ const router = express.Router();
 // import and use routers
 const actorRouter = require('./actorRouter');
 const movieRouter = require('./movieRouter');
+const genreRouter = require('./genreRouter');
 
 router.use('/actors', actorRouter);
 router.use('/movies', movieRouter);
+router.use('/genres', genreRouter);
 
+// Render index
 router.get('/', (req, res, next) => {
   res.render('index');
 });
@@ -74,17 +77,6 @@ const testShows = [
 
 router.get('/shows', (req, res, next) => {
   res.render('./show/show_list', { shows: testShows });
-});
-
-// GENRE ROUTES
-const testGenres = [
-  { name: 'Fantasy' },
-  { name: 'Action' },
-  { name: 'Romance' },
-];
-
-router.get('/genres', (req, res, next) => {
-  res.render('./genre/genre_list', { genres: testGenres });
 });
 
 module.exports = router;
