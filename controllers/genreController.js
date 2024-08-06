@@ -86,3 +86,7 @@ exports.genre_update_post = [
 ];
 
 // Genre delete
+exports.genre_delete = asyncHandler(async (req, res, next) => {
+  await Genre.findByIdAndDelete(req.params.id);
+  res.redirect('/genres');
+});

@@ -14,6 +14,7 @@ router.get('/edit/:id', genre_controller.genre_update_get);
 router.post('/edit/:id', genre_controller.genre_update_post);
 
 // delete
+router.delete('/:id', genre_controller.genre_delete);
 
 router.get('/:id', genre_controller.genre_detail);
 
