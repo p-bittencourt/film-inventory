@@ -5,9 +5,16 @@
     <p>Summary: <%= movie.summary %></p>
     <% } %> <% if (movie.release_year) { %>
     <p>Release Year: <%= movie.release_year %></p>
-    <% } %> <% if (movie.director) { %>
-    <p>Director: <%= movie.director %></p>
-    <% } %> <% if (genres.length) { %> <% genres.forEach(genre => { %>
+    <% } %> <% if (directors.length) { %>
+    <p style="display: inline">Director:</p>
+    <% directors.forEach(director => { %>
+    <a href="<%= director.url %>">
+      <p style="display: inline"><%= director.name %></p></a
+    >
+    <% }) %> <% } %> <% if (genres.length) { %>
+    <p></p>
+    <p style="display: inline">Genre:</p>
+    <% genres.forEach(genre => { %>
     <a href="<%= genre.url %>">
       <p style="display: inline">- <%= genre.name %></p></a
     >

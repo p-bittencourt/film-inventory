@@ -1,6 +1,7 @@
 const Movie = require('../models/movie');
 const Actor = require('../models/actor');
 const Genre = require('../models/genre');
+const Director = require('../models/director');
 const { body, validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 
@@ -10,12 +11,22 @@ async function getMovieCast(movie) {
 }
 
 async function getGenreObjects(genres) {
-  const genreNames = [];
+  const genreObjects = [];
   for (const genre in genres) {
-    const genreName = await Genre.findById(genres[genre]).exec();
-    genreNames.push(genreName);
+    const genreObject = await Genre.findById(genres[genre]).exec();
+    genreObjects.push(genreObject);
   }
-  return genreNames;
+  return genreObjects;
+}
+
+async function getDirectorObjects(directors) {
+  console.log(directors);
+  const directorObjects = [];
+  for (const director in directors) {
+    const directorObject = await Director.findById(directors[director]).exec();
+    directorObjects.push(directorObject);
+  }
+  return directorObjects;
 }
 
 // Movie list
@@ -40,6 +51,9 @@ exports.movie_detail = asyncHandler(async (req, res, next) => {
   const actors = await Actor.find().exec();
   const cast = await getMovieCast(movie);
   const genres = await getGenreObjects(movie.genre);
+  const directors = await getDirectorObjects(movie.director);
+
+  console.log(movie);
 
   const availableActors = actors.filter(
     (actor) => !cast.some((castActor) => castActor.id === actor.id)
@@ -47,6 +61,7 @@ exports.movie_detail = asyncHandler(async (req, res, next) => {
 
   res.render('./movie/movie_detail', {
     movie: movie,
+    directors: directors,
     cast: cast,
     genres: genres,
     actors: availableActors,
