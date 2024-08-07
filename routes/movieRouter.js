@@ -13,6 +13,8 @@ router.post('/edit/:id', movie_controller.movie_update_post);
 
 router.delete('/:id', movie_controller.movie_delete);
 
+router.post('/:id/add-actor', movie_controller.movie_add_actor);
+
 router.get('/:id', movie_controller.movie_detail);
 
 module.exports = router;

@@ -185,3 +185,15 @@ exports.movie_delete = asyncHandler(async (req, res, next) => {
   await Movie.findByIdAndDelete(movieId);
   res.redirect('/movies');
 });
+
+// Add actor from movie_detail view
+exports.movie_add_actor = asyncHandler(async (req, res, next) => {
+  const movieId = req.params.id;
+  const actor = await Actor.findById(req.body['add-cast']).exec();
+
+  actor.movies.push(movieId);
+
+  await actor.save();
+
+  res.redirect(`/movies/${movieId}`);
+});

@@ -27,12 +27,15 @@
     <p>No cast to display</p>
     <% } %>
     <div class="add-cast">
-      <label for="add-cast">Add cast members: </label>
-      <select id="add-cast" name="add-cast" multiple>
-        <% actors.forEach(function(actor) { %>
-        <option value="<%= actor._id %>" %>><%= actor.name %></option>
-        <% }); %>
-      </select>
+      <form action="/movies/<%= movie.id %>/add-actor" method="post">
+        <label for="add-cast">Add cast members: </label>
+        <select id="add-cast" name="add-cast" multiple>
+          <% actors.forEach(function(actor) { %>
+          <option value="<%= actor._id %>" %>><%= actor.name %></option>
+          <% }); %>
+        </select>
+        <button type="submit">Add actor</button>
+      </form>
     </div>
   </div>
   <div class="card-buttons">
