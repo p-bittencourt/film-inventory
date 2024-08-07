@@ -1,28 +1,31 @@
-<div>
-  <h1><%=movie.title%></h1>
-  <% if (movie.summary) { %>
-  <p>Summary: <%= movie.summary %></p>
-  <% } %> <% if (movie.release_year) { %>
-  <p>Release Year: <%= movie.release_year %></p>
-  <% } %> <% if (movie.director) { %>
-  <p>Director: <%= movie.director %></p>
-  <% } %> <% if (genres.length) { %> <% genres.forEach(genre => { %>
-  <a href="<%= genre.url %>">
-    <p style="display: inline">- <%= genre.name %></p></a
-  >
-  <% }) %> <% } %> <% if (movie.picture) { %>
-  <img
-    src="<%= movie.picture %>"
-    alt="<%= movie.title %>"
-    class="resized-image-detail"
-  />
-  <% } %>
+<div class="movie-card">
+  <div class="movie-data">
+    <h1><%=movie.title%></h1>
+    <% if (movie.summary) { %>
+    <p>Summary: <%= movie.summary %></p>
+    <% } %> <% if (movie.release_year) { %>
+    <p>Release Year: <%= movie.release_year %></p>
+    <% } %> <% if (movie.director) { %>
+    <p>Director: <%= movie.director %></p>
+    <% } %> <% if (genres.length) { %> <% genres.forEach(genre => { %>
+    <a href="<%= genre.url %>">
+      <p style="display: inline">- <%= genre.name %></p></a
+    >
+    <% }) %> <% } %> <% if (movie.picture) { %>
+    <img
+      src="<%= movie.picture %>"
+      alt="<%= movie.title %>"
+      class="resized-image-detail"
+    />
+    <% } %>
+  </div>
   <div class="cast-div">
     <h3>Cast:</h3>
     <% if (cast.length > 0) { %> <% cast.forEach(actor => { %>
     <p><a href="<%=actor.url%>"><%= actor.name %></a></p>
     <% }); %> <% } else { %>
     <p>No cast to display</p>
+    <% } %>
     <div class="add-cast">
       <label for="add-cast">Add cast members: </label>
       <select id="add-cast" name="add-cast" multiple>
@@ -31,7 +34,6 @@
         <% }); %>
       </select>
     </div>
-    <% } %>
   </div>
   <div class="card-buttons">
     <a href="/movies/edit/<%= movie.id %>"><button>Edit</button></a>

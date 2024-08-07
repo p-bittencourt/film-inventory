@@ -41,11 +41,15 @@ exports.movie_detail = asyncHandler(async (req, res, next) => {
   const cast = await getMovieCast(movie);
   const genres = await getGenreObjects(movie.genre);
 
+  const availableActors = actors.filter(
+    (actor) => !cast.some((castActor) => castActor.id === actor.id)
+  );
+
   res.render('./movie/movie_detail', {
     movie: movie,
     cast: cast,
     genres: genres,
-    actors: actors,
+    actors: availableActors,
   });
 });
 
