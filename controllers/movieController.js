@@ -70,7 +70,6 @@ exports.movie_create_post = [
   body('summary')
     .trim()
     .isLength({ min: 1 })
-    .escape()
     .withMessage('Summary is required.'),
   body('release_date')
     .optional({ checkFalsy: true })
@@ -129,7 +128,6 @@ exports.movie_update_post = [
   body('summary')
     .trim()
     .isLength({ min: 1 })
-    .escape()
     .withMessage('Summary is required.'),
   body('release_date')
     .optional({ checkFalsy: true })
