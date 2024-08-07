@@ -49,6 +49,14 @@
     </select>
   </div>
   <div>
+    <label for="director">Director:</label>
+    <select id="director" name="director" multiple>
+      <% directors.forEach(function(director) { %>
+        <option value="<%= director._id %>" <%= movie && movie.director.includes(director._id) ? 'selected' : '' %>><%= director.name %></option>
+      <% }); %>
+    </select>
+  </div>
+  <div>
     <button type="submit"><%= movie ? 'Update' : 'Create' %></button>
   </div>
 </form>

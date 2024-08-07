@@ -71,7 +71,12 @@ exports.movie_detail = asyncHandler(async (req, res, next) => {
 // Movie create get
 exports.movie_create_get = asyncHandler(async (req, res, next) => {
   const allGenres = await Genre.find().exec();
-  res.render('./movie/movie_create', { movie: '', genres: allGenres });
+  const allDirectors = await Director.find().exec();
+  res.render('./movie/movie_create', {
+    movie: '',
+    genres: allGenres,
+    directors: allDirectors,
+  });
 });
 
 // Movie create post
@@ -102,13 +107,23 @@ exports.movie_create_post = [
     // Extract validation errors from a request
     const errors = validationResult(req);
 
-    const { title, release_date, summary, picture, genre } = req.body;
+    const { title, release_date, summary, picture, genre, director } = req.body;
+
+    // Get director ids from the form
+    let directorIds = [];
+    if (Array.isArray(director)) {
+      directorIds = director;
+    } else if (director) {
+      directorIds = [director];
+    }
+
     const movie = new Movie({
       title,
       release_date,
       summary,
       picture,
       genre,
+      director: directorIds,
     });
 
     if (!errors.isEmpty()) {
@@ -121,6 +136,14 @@ exports.movie_create_post = [
     } else {
       // Data is valid. Save actor
       await movie.save();
+      // Assign director to the movie
+      if (directorIds.length) {
+        for (const directorId in directorIds) {
+          const director = await Director.findById(directorIds[directorId]);
+          director.movies.push(movie._id);
+          await director.save();
+        }
+      }
       res.redirect(movie.url);
     }
   }),
@@ -158,13 +181,23 @@ exports.movie_update_post = [
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
 
-    const { title, release_date, summary, picture, genre } = req.body;
+    const { title, release_date, summary, picture, genre, director } = req.body;
+
+    // Get director ids from the form
+    let directorIds = [];
+    if (Array.isArray(director)) {
+      directorIds = director;
+    } else if (director) {
+      directorIds = [director];
+    }
+
     const movie = new Movie({
       title,
       release_date,
       summary,
       picture,
       genre,
+      director: directorIds,
       _id: req.params.id,
     });
 
@@ -182,6 +215,16 @@ exports.movie_update_post = [
         movie,
         {}
       );
+
+      // Assign director to the movie
+      if (directorIds.length) {
+        for (const directorId in directorIds) {
+          const director = await Director.findById(directorIds[directorId]);
+          director.movies.push(updatedMovie._id);
+          await director.save();
+        }
+      }
+
       res.redirect(updatedMovie.url);
     }
   }),
