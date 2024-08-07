@@ -1,5 +1,5 @@
 const Director = require('../models/director');
-const Movie = require('../models/director');
+const Movie = require('../models/movie');
 const { body, validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 
@@ -21,6 +21,7 @@ exports.director_list = asyncHandler(async (req, res, next) => {
 // Get director form
 exports.director_create_get = asyncHandler(async (req, res, next) => {
   const allMovies = await Movie.find().exec();
+  console.log(allMovies);
   res.render('./director/director_create', { director: '', movies: allMovies });
 });
 
