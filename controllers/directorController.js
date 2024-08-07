@@ -21,7 +21,6 @@ exports.director_list = asyncHandler(async (req, res, next) => {
 // Get director form
 exports.director_create_get = asyncHandler(async (req, res, next) => {
   const allMovies = await Movie.find().exec();
-  console.log(allMovies);
   res.render('./director/director_create', { director: '', movies: allMovies });
 });
 
@@ -106,6 +105,14 @@ exports.director_create_post = [
     } else {
       // Data is valid. Save director
       await director.save();
+      // Assign director to the movie
+      if (movieIds.length) {
+        for (const movieId in movieIds) {
+          const movie = await Movie.findById(movieIds[movieId]);
+          movie.director.push(director._id);
+          await movie.save();
+        }
+      }
       res.redirect(director.url);
     }
   }),
@@ -218,6 +225,16 @@ exports.director_update_post = [
         director,
         {}
       );
+
+      // Assign director to the movie
+      if (movieIds.length) {
+        for (const movieId in movieIds) {
+          const movie = await Movie.findById(movieIds[movieId]);
+          movie.director.push(updatedDirector._id);
+          await movie.save();
+        }
+      }
+
       res.redirect(updatedDirector.url);
     }
   }),
