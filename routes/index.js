@@ -6,44 +6,16 @@ const router = express.Router();
 const actorRouter = require('./actorRouter');
 const movieRouter = require('./movieRouter');
 const genreRouter = require('./genreRouter');
+const directorRouter = require('./directorRouter');
 
 router.use('/actors', actorRouter);
 router.use('/movies', movieRouter);
 router.use('/genres', genreRouter);
+router.use('/directors', directorRouter);
 
 // Render index
 router.get('/', (req, res, next) => {
   res.render('index');
-});
-
-// DIRECTOR ROUTES
-
-const testDirectors = [
-  {
-    name: 'Christopher Nolan',
-    age: 51,
-    nationality: 'British',
-    picture: 'https://example.com/nolan.jpg',
-    movies: ['Inception', 'The Dark Knight', 'Interstellar'],
-  },
-  {
-    name: 'Quentin Tarantino',
-    age: 58,
-    nationality: 'American',
-    picture: 'https://example.com/tarantino.jpg',
-    movies: ['Pulp Fiction', 'Kill Bill', 'Django Unchained'],
-  },
-  {
-    name: 'Martin Scorsese',
-    age: 79,
-    nationality: 'American',
-    picture: 'https://example.com/scorsese.jpg',
-    movies: ['Goodfellas', 'The Departed', 'Taxi Driver'],
-  },
-];
-
-router.get('/directors', (req, res, next) => {
-  res.render('./director/director_list', { directors: testDirectors });
 });
 
 // SHOW ROUTES

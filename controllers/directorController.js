@@ -1,31 +1,31 @@
-const Actor = require('../models/actor');
-const Movie = require('../models/movie');
+const Director = require('../models/director');
+const Movie = require('../models/director');
 const { body, validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 
-// Display all actors
-exports.actor_list = asyncHandler(async (req, res, next) => {
-  const allActors = await Actor.find().exec();
-  const moviesByActor = [];
+// Display all directors
+exports.director_list = asyncHandler(async (req, res, next) => {
+  const allDirectors = await Director.find().exec();
+  const moviesByDirector = [];
   // loop through all actors in the list to get the movies they feature in
-  for (const actor in allActors) {
-    const movie = await getMoviesFeaturing(allActors[actor]);
-    moviesByActor.push(movie);
+  for (const director in allDirectors) {
+    const movie = await getMoviesFrom(allDirectors[director]);
+    moviesByDirector.push(movie);
   }
-  res.render('./actor/actor_list', {
-    actors: allActors,
-    movies: moviesByActor,
+  res.render('./director/director_list', {
+    directors: allDirectors,
+    movies: moviesByDirector,
   });
 });
 
-// Get actor form
-exports.actor_create_get = asyncHandler(async (req, res, next) => {
+// Get director form
+exports.director_create_get = asyncHandler(async (req, res, next) => {
   const allMovies = await Movie.find().exec();
-  res.render('./actor/actor_create', { actor: '', movies: allMovies });
+  res.render('./director/director_create', { director: '', movies: allMovies });
 });
 
 // Post actor form
-exports.actor_create_post = [
+exports.director_create_post = [
   // Validate and sanitize fields
   body('first_name')
     .trim()
@@ -83,7 +83,7 @@ exports.actor_create_post = [
       movieIds = [movies];
     }
 
-    const actor = new Actor({
+    const director = new Director({
       first_name,
       family_name,
       date_of_birth,
@@ -96,36 +96,42 @@ exports.actor_create_post = [
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitzed value/errors messages.
       const allMovies = await Movie.find().exec();
-      res.render('./actor/actor_create', {
-        actor: actor,
+      res.render('./director/director_create', {
+        director: director,
         movies: allMovies,
         errors: errors.array(),
       });
       return;
     } else {
-      // Data is valid. Save actor
-      await actor.save();
-      res.redirect(actor.url);
+      // Data is valid. Save director
+      await director.save();
+      res.redirect(director.url);
     }
   }),
 ];
 
-// Actor detail page
-exports.actor_detail = asyncHandler(async (req, res, next) => {
-  const actor = await Actor.findById(req.params.id).exec();
-  const moviesByActor = await getMoviesFeaturing(actor);
+// Director detail page
+exports.director_detail = asyncHandler(async (req, res, next) => {
+  const director = await Director.findById(req.params.id).exec();
+  const moviesFromDirector = await getMoviesFrom(director);
 
-  res.render('./actor/actor_detail', { actor: actor, movies: moviesByActor });
+  res.render('./director/director_detail', {
+    director: director,
+    movies: moviesFromDirector,
+  });
 });
 
-// Actor update
-exports.actor_update_get = asyncHandler(async (req, res, next) => {
-  const actor = await Actor.findById(req.params.id);
+// Director update
+exports.director_update_get = asyncHandler(async (req, res, next) => {
+  const director = await Director.findById(req.params.id);
   const allMovies = await Movie.find().exec();
-  res.render('./actor/actor_create', { actor: actor, movies: allMovies });
+  res.render('./director/director_create', {
+    director: director,
+    movies: allMovies,
+  });
 });
 
-exports.actor_update_post = [
+exports.director_update_post = [
   // Validate and sanitize fields
   body('first_name')
     .trim()
@@ -183,7 +189,7 @@ exports.actor_update_post = [
       movieIds = [movies];
     }
 
-    const actor = new Actor({
+    const director = new Director({
       first_name,
       family_name,
       date_of_birth,
@@ -198,36 +204,36 @@ exports.actor_update_post = [
       // There are errors. Render form again with sanitzed value/errors messages.
       const allMovies = await Movie.find().exec();
       console.log(errors);
-      res.render('./actor/actor_create', {
-        actor: actor,
+      res.render('./director/director_create', {
+        director: director,
         movies: allMovies,
         errors: errors.array(),
       });
       return;
     } else {
-      // Data is valid. Save actor
-      const updatedActor = await Actor.findByIdAndUpdate(
+      // Data is valid. Save director
+      const updatedDirector = await Director.findByIdAndUpdate(
         req.params.id,
-        actor,
+        director,
         {}
       );
-      res.redirect(updatedActor.url);
+      res.redirect(updatedDirector.url);
     }
   }),
 ];
 
-// Actor delete
-exports.actor_delete = asyncHandler(async (req, res, next) => {
-  await Actor.findByIdAndDelete(req.params.id);
-  res.redirect('/actors');
+// Director delete
+exports.director_delete = asyncHandler(async (req, res, next) => {
+  await Director.findByIdAndDelete(req.params.id);
+  res.redirect('/directors');
 });
 
 // Helper functions
-async function getMoviesFeaturing(actor) {
-  const moviesByActor = [];
-  for (const movieId of actor.movies) {
+async function getMoviesFrom(director) {
+  const moviesFromDirector = [];
+  for (const movieId of director.movies) {
     const movie = await Movie.findById(movieId).exec();
-    moviesByActor.push(movie);
+    moviesFromDirector.push(movie);
   }
-  return moviesByActor;
+  return moviesFromDirector;
 }

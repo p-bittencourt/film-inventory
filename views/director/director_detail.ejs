@@ -1,13 +1,13 @@
-<div class="actor-card-detail">
-  <h1><%=actor.name%></h1>
-  <% if (actor.age) { %>
-  <p>Age: <%= actor.age %></p>
-  <% } %> <% if (actor.nationality) { %>
-  <p>Nationality: <%= actor.nationality %></p>
-  <% } %> <% if (actor.picture) { %>
+<div class="director-card-detail">
+  <h1><%=director.name%></h1>
+  <% if (director.age) { %>
+  <p>Age: <%= director.age %></p>
+  <% } %> <% if (director.nationality) { %>
+  <p>Nationality: <%= director.nationality %></p>
+  <% } %> <% if (director.picture) { %>
   <img
-    src="<%= actor.picture %>"
-    alt="<%= actor.name %>"
+    src="<%= director.picture %>"
+    alt="<%= director.name %>"
     class="resized-image-detail"
   />
   <% } %>
@@ -18,11 +18,11 @@
   <p>No movies to display</p>
   <% } %>
   <div class="card-buttons">
-    <a href="/actors/edit/<%= actor.id %>"><button>Edit</button></a>
+    <a href="/directors/edit/<%= director.id %>"><button>Edit</button></a>
     <button type="button" onclick="showPasswordField()">Delete</button>
     <form
       id="deleteForm"
-      action="/actors/<%= actor.id %>?_method=DELETE"
+      action="/directors/<%= director.id %>?_method=DELETE"
       method="post"
       style="display: none; margin-top: 10px"
       onsubmit="handleDelete(event);"
