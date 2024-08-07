@@ -17,12 +17,22 @@
     class="resized-image-detail"
   />
   <% } %>
-  <h3>Cast:</h3>
-  <% if (cast.length > 0) { %> <% cast.forEach(actor => { %>
-  <p><a href="<%=actor.url%>"><%= actor.name %></a></p>
-  <% }); %> <% } else { %>
-  <p>No cast to display</p>
-  <% } %>
+  <div class="cast-div">
+    <h3>Cast:</h3>
+    <% if (cast.length > 0) { %> <% cast.forEach(actor => { %>
+    <p><a href="<%=actor.url%>"><%= actor.name %></a></p>
+    <% }); %> <% } else { %>
+    <p>No cast to display</p>
+    <div class="add-cast">
+      <label for="add-cast">Add cast members: </label>
+      <select id="add-cast" name="add-cast" multiple>
+        <% actors.forEach(function(actor) { %>
+        <option value="<%= actor._id %>" %>><%= actor.name %></option>
+        <% }); %>
+      </select>
+    </div>
+    <% } %>
+  </div>
   <div class="card-buttons">
     <a href="/movies/edit/<%= movie.id %>"><button>Edit</button></a>
     <button type="button" onclick="showPasswordField()">Delete</button>

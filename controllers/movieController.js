@@ -37,6 +37,7 @@ exports.movie_list = asyncHandler(async (req, res, next) => {
 // Movie detail
 exports.movie_detail = asyncHandler(async (req, res, next) => {
   const movie = await Movie.findById(req.params.id).exec();
+  const actors = await Actor.find().exec();
   const cast = await getMovieCast(movie);
   const genres = await getGenreObjects(movie.genre);
 
@@ -44,6 +45,7 @@ exports.movie_detail = asyncHandler(async (req, res, next) => {
     movie: movie,
     cast: cast,
     genres: genres,
+    actors: actors,
   });
 });
 
