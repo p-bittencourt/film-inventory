@@ -20,7 +20,6 @@ async function getGenreObjects(genres) {
 }
 
 async function getDirectorObjects(directors) {
-  console.log(directors);
   const directorObjects = [];
   for (const director in directors) {
     const directorObject = await Director.findById(directors[director]).exec();
@@ -35,13 +34,18 @@ exports.movie_list = asyncHandler(async (req, res, next) => {
   const allMovies = await Movie.find().exec();
   // loop through the movies and get the cast from each one to send to the view
   const movieCast = [];
+  const movieDirectors = [];
   for (eachMovie of allMovies) {
     const cast = await getMovieCast(eachMovie);
+    const directors = await getDirectorObjects(eachMovie.director);
     movieCast.push(cast);
+    movieDirectors.push(directors);
   }
+
   res.render('./movie/movie_list', {
     movies: allMovies,
     cast: movieCast,
+    directors: movieDirectors,
   });
 });
 
@@ -52,8 +56,6 @@ exports.movie_detail = asyncHandler(async (req, res, next) => {
   const cast = await getMovieCast(movie);
   const genres = await getGenreObjects(movie.genre);
   const directors = await getDirectorObjects(movie.director);
-
-  console.log(movie);
 
   const availableActors = actors.filter(
     (actor) => !cast.some((castActor) => castActor.id === actor.id)

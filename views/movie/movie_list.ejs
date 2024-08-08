@@ -8,15 +8,19 @@
     <p>Summary: <%= movie.summary %></p>
     <% } %> <% if (movie.release_year) { %>
     <p>Release Year: <%= movie.release_year %></p>
-    <% } %> <% if (movie.director) { %>
-    <p>Director: <%= movie.director %></p>
-    <% } %> <% if (movie.picture) { %>
+    <% } %> <% if (directors.length) { %> <% if (directors[index].length) { %>
+    <p style="display: inline">Director:</p>
+    <% directors[index].forEach(director => { %>
+    <a href="<%= director.url %>">
+      <p style="display: inline"><%= director.name %></p></a
+    >
+    <% })} %> <% if (movie.picture) { %>
     <img
       src="<%= movie.picture %>"
       alt="<%= movie.title %>"
       class="resized-image"
     />
-    <% } %>
+    <% } }%>
     <ul>
       <% if (cast.length) {%> <% if (cast[index].length) { %>
       <h3>Featuring:</h3>
