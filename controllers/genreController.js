@@ -105,11 +105,12 @@ exports.genre_update_post = [
 // Genre delete
 exports.genre_delete = asyncHandler(async (req, res, next) => {
   const genreId = req.params.id;
+  // Clear cross-reference
   await Movie.updateMany(
     { genre: genreId },
     { $pull: { genre: genreId } }
   ).exec();
-
+  // Actually delete the genre
   await Genre.findByIdAndDelete(genreId);
   res.redirect('/genres');
 });

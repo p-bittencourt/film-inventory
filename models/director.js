@@ -66,5 +66,15 @@ DirectorSchema.virtual('age').get(function () {
   return age;
 });
 
+// Pre-remove middleware to handle cascading deletes
+DirectorSchema.pre('remove', async function (next) {
+  const directorId = this._id;
+  await mongoose
+    .model('Movie')
+    .updateMany({ director: directorId }, { $pull: { director: directorId } })
+    .exec();
+  next();
+});
+
 // Export the model
 module.exports = mongoose.model('Director', DirectorSchema);

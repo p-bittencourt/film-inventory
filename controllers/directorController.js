@@ -242,7 +242,15 @@ exports.director_update_post = [
 
 // Director delete
 exports.director_delete = asyncHandler(async (req, res, next) => {
-  await Director.findByIdAndDelete(req.params.id);
+  const directorId = req.params.id;
+  // Ensure director object is deleted from connected movies
+  await Movie.updateMany(
+    { director: directorId },
+    { $pull: { director: directorId } }
+  ).exec();
+
+  // Delete the director
+  await Director.findByIdAndDelete(directorId);
   res.redirect('/directors');
 });
 
