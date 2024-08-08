@@ -10,6 +10,8 @@ main {
   display: flex;
 }
 
+/* LAYOUT PAGE */
+
 .sidebar {
   width: 15%;
   height: 100vh;
@@ -25,6 +27,25 @@ main {
   height: 100vh;
   overflow-y: auto; /* Make only the content scrollable */
   padding-left: 1.5rem;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  main {
+    flex-direction: column; /* Stack sidebar on top of content */
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto; /* Adjust height to fit content */
+    flex-direction: row;
+  }
+
+  .content {
+    width: 100%;
+    height: auto; /* Adjust height to fit content */
+    padding-left: 1rem; /* Adjust padding for mobile */
+  }
 }
 
 .resized-image {
