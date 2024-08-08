@@ -109,8 +109,10 @@ exports.director_create_post = [
       if (movieIds.length) {
         for (const movieId in movieIds) {
           const movie = await Movie.findById(movieIds[movieId]);
-          movie.director.push(director._id);
-          await movie.save();
+          if (!movie.director.includes(director._id)) {
+            movie.director.push(director._id);
+            await movie.save();
+          }
         }
       }
       res.redirect(director.url);
@@ -230,8 +232,10 @@ exports.director_update_post = [
       if (movieIds.length) {
         for (const movieId in movieIds) {
           const movie = await Movie.findById(movieIds[movieId]);
-          movie.director.push(updatedDirector._id);
-          await movie.save();
+          if (!movie.director.includes(director._id)) {
+            movie.director.push(director._id);
+            await movie.save();
+          }
         }
       }
 

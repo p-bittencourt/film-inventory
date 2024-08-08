@@ -142,8 +142,10 @@ exports.movie_create_post = [
       if (directorIds.length) {
         for (const directorId in directorIds) {
           const director = await Director.findById(directorIds[directorId]);
-          director.movies.push(movie._id);
-          await director.save();
+          if (!director.movies.includes(movie._id)) {
+            director.movies.push(movie._id);
+            await director.save();
+          }
         }
       }
       res.redirect(movie.url);
@@ -155,7 +157,12 @@ exports.movie_create_post = [
 exports.movie_update_get = asyncHandler(async (req, res, next) => {
   const movie = await Movie.findById(req.params.id);
   const allGenres = await Genre.find().exec();
-  res.render('./movie/movie_create', { movie: movie, genres: allGenres });
+  const allDirectors = await Director.find().exec();
+  res.render('./movie/movie_create', {
+    movie: movie,
+    genres: allGenres,
+    directors: allDirectors,
+  });
 });
 
 exports.movie_update_post = [
@@ -222,8 +229,10 @@ exports.movie_update_post = [
       if (directorIds.length) {
         for (const directorId in directorIds) {
           const director = await Director.findById(directorIds[directorId]);
-          director.movies.push(updatedMovie._id);
-          await director.save();
+          if (!director.movies.includes(movie._id)) {
+            director.movies.push(movie._id);
+            await director.save();
+          }
         }
       }
 
