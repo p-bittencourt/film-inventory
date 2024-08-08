@@ -8,20 +8,25 @@
   <body>
     <main>
       <div class="sidebar">
-        <ul>
-          <h3>View</h3>
-          <li><a href="/movies">Movies</a></li>
-          <li><a href="/directors">Directors</a></li>
-          <li><a href="/actors">Actors</a></li>
-          <li><a href="/genres">Genres</a></li>
-        </ul>
-        <ul>
-          <h3>Create</h3>
-          <li><a href="/movies/create">Movies</a></li>
-          <li><a href="/directors/create">Directors</a></li>
-          <li><a href="/actors/create">Actors</a></li>
-          <li><a href="/genres/create">Genres</a></li>
-        </ul>
+        <div class="content-list">
+          <ul>
+            <h3>View</h3>
+            <li><a href="/movies">Movies</a></li>
+            <li><a href="/directors">Directors</a></li>
+            <li><a href="/actors">Actors</a></li>
+            <li><a href="/genres">Genres</a></li>
+          </ul>
+          <ul>
+            <h3>Create</h3>
+            <li><a href="/movies/create">Movies</a></li>
+            <li><a href="/directors/create">Directors</a></li>
+            <li><a href="/actors/create">Actors</a></li>
+            <li><a href="/genres/create">Genres</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-footer">
+          <p>&copy; 2024 BIT Productions</p>
+        </div>
       </div>
       <div class="content"><%- body %></div>
     </main>
