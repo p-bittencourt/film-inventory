@@ -1,22 +1,26 @@
-<div class="director-card-detail">
-  <h1><%=director.name%></h1>
-  <% if (director.age) { %>
-  <p>Age: <%= director.age %></p>
-  <% } %> <% if (director.nationality) { %>
-  <p>Nationality: <%= director.nationality %></p>
-  <% } %> <% if (director.picture) { %>
-  <img
-    src="<%= director.picture %>"
-    alt="<%= director.name %>"
-    class="resized-image-detail"
-  />
-  <% } %>
-  <h3>Movies:</h3>
-  <% if (movies.length > 0) { %> <% movies.forEach(movie => { %>
-  <p><a href="<%=movie.url%>"><%= movie.title %></a></p>
-  <% }); %> <% } else { %>
-  <p>No movies to display</p>
-  <% } %>
+<div class="detail-page">
+  <div class="artist-data">
+    <h1><%=director.name%></h1>
+    <% if (director.age) { %>
+    <p>Age: <%= director.age %></p>
+    <% } %> <% if (director.nationality) { %>
+    <p>Nationality: <%= director.nationality %></p>
+    <% } %> <% if (director.picture) { %>
+    <img
+      src="<%= director.picture %>"
+      alt="<%= director.name %>"
+      class="resized-image-detail"
+    />
+    <% } %>
+  </div>
+  <div class="movies-featuring">
+    <h3>Movies:</h3>
+    <% if (movies.length > 0) { %> <% movies.forEach(movie => { %>
+    <p><a href="<%=movie.url%>"><%= movie.title %></a></p>
+    <% }); %> <% } else { %>
+    <p>No movies to display</p>
+    <% } %>
+  </div>
   <div class="card-buttons">
     <a href="/directors/edit/<%= director.id %>"><button>Edit</button></a>
     <button type="button" onclick="showPasswordField()">Delete</button>

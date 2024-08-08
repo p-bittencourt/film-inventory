@@ -1,37 +1,39 @@
-<h1>List of Movies</h1>
-<% if (movies.length) { %>
-<ul>
-  <% movies.forEach((movie, index) => { %>
-  <li>
-    <h2><a href="<%=movie.url%>"><%= movie.title %></a></h2>
-    <% if (movie.summary) { %>
-    <p>Summary: <%= movie.summary %></p>
-    <% } %> <% if (movie.release_year) { %>
-    <p>Release Year: <%= movie.release_year %></p>
-    <% } %> <% if (directors.length) { %> <% if (directors[index].length) { %>
-    <p style="display: inline">Director:</p>
-    <% directors[index].forEach(director => { %>
-    <a href="<%= director.url %>">
-      <p style="display: inline"><%= director.name %></p></a
-    >
-    <% })} %> <% if (movie.picture) { %>
-    <img
-      src="<%= movie.picture %>"
-      alt="<%= movie.title %>"
-      class="resized-image"
-    />
-    <% } }%>
-    <ul>
-      <% if (cast.length) {%> <% if (cast[index].length) { %>
-      <h3>Featuring:</h3>
-      <% cast[index].forEach(actor => { %>
-      <li><a href="<%=actor.url%>"><%= actor.name %></a></li>
-      <% }); %> <% } else { %>
-      <p>No cast registered</p>
-      <% } %> <% } %>
-    </ul>
-  </li>
-  <% }); %> <% } else { %>
-  <p>There are no movies registered</p>
-  <% } %>
-</ul>
+<div class="list-page">
+  <h1>List of Movies</h1>
+  <% if (movies.length) { %>
+  <ul>
+    <% movies.forEach((movie, index) => { %>
+    <li>
+      <h2><a href="<%=movie.url%>"><%= movie.title %></a></h2>
+      <% if (movie.summary) { %>
+      <p>Summary: <%= movie.summary %></p>
+      <% } %> <% if (movie.release_year) { %>
+      <p>Release Year: <%= movie.release_year %></p>
+      <% } %> <% if (directors.length) { %> <% if (directors[index].length) { %>
+      <p style="display: inline">Director:</p>
+      <% directors[index].forEach(director => { %>
+      <a href="<%= director.url %>">
+        <p style="display: inline"><%= director.name %></p></a
+      >
+      <% })} %> <% if (movie.picture) { %>
+      <img
+        src="<%= movie.picture %>"
+        alt="<%= movie.title %>"
+        class="resized-image"
+      />
+      <% } }%>
+      <ul>
+        <% if (cast.length) {%> <% if (cast[index].length) { %>
+        <h3>Featuring:</h3>
+        <% cast[index].forEach(actor => { %>
+        <li><a href="<%=actor.url%>"><%= actor.name %></a></li>
+        <% }); %> <% } else { %>
+        <p>No cast registered</p>
+        <% } %> <% } %>
+      </ul>
+    </li>
+    <% }); %> <% } else { %>
+    <p>There are no movies registered</p>
+    <% } %>
+  </ul>
+</div>

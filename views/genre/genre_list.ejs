@@ -1,12 +1,14 @@
-<h1>List of Genres</h1>
-<% if (genres.length) { %>
-<ul>
-  <% genres.forEach(genre => { %>
-  <li>
-    <a href="/genres/<%= genre._id %>"><h3><%= genre.name %></h3></a>
-  </li>
-  <% }); %>
-</ul>
-<% } else { %>
-<p>There are no kinds of genre registered</p>
-<% } %>
+<div class="list-page">
+  <h1>List of Genres</h1>
+  <% if (genres.length) { %>
+  <ul>
+    <% genres.forEach(genre => { %>
+    <li>
+      <a href="/genres/<%= genre._id %>"><h3><%= genre.name %></h3></a>
+    </li>
+    <% }); %>
+  </ul>
+  <% } else { %>
+  <p>There are no kinds of genre registered</p>
+  <% } %>
+</div>

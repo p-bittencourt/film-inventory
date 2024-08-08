@@ -1,15 +1,17 @@
-<h1><%= genre ? 'Edit Genre' : 'Create Genre' %></h1>
-<form method="post">
-  <label for="name">Name:</label>
-  <input
-    type="text"
-    id="name"
-    name="name"
-    required
-    maxlength="75"
-    value="<%= genre ? genre.name : '' %>"
-  />
-  <div>
-    <button type="submit"><%= genre ? 'Update' : 'Create' %></button>
-  </div>
-</form>
+<div class="create-page">
+  <h1><%= genre ? 'Edit Genre' : 'Create Genre' %></h1>
+  <form method="post">
+    <label for="name">Name:</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      required
+      maxlength="75"
+      value="<%= genre ? genre.name : '' %>"
+    />
+    <div>
+      <button type="submit"><%= genre ? 'Update' : 'Create' %></button>
+    </div>
+  </form>
+</div>

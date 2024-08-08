@@ -1,11 +1,13 @@
-<div class="genre-card">
+<div class="detail-page">
   <h1><%= genre.name %></h1>
   <h3>Movies in this genre:</h3>
-  <% if (movies.length > 0) { %> <% movies.forEach(movie => { %>
-  <p><a href="<%=movie.url%>"><%= movie.title %></a></p>
-  <% }); %> <% } else { %>
-  <p>No movies to display</p>
-  <% } %>
+  <div class="movies-in-genre">
+    <% if (movies.length > 0) { %> <% movies.forEach(movie => { %>
+    <p><a href="<%=movie.url%>"><%= movie.title %></a></p>
+    <% }); %> <% } else { %>
+    <p>No movies to display</p>
+    <% } %>
+  </div>
   <div class="card-buttons">
     <a href="/genres/edit/<%= genre.id %>"><button>Edit</button></a>
     <button type="button" onclick="showPasswordField()">Delete</button>
