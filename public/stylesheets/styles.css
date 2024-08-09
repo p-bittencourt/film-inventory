@@ -61,6 +61,10 @@ main {
   margin-bottom: 1rem;
   flex: 1 1 calc(45% - 1rem); /* Take up 1/3 of the parent width minus the gap */
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
 }
 
 .movie-card a {
@@ -73,10 +77,29 @@ main {
   font-size: 1.5rem;
 }
 
+.movie-card ul {
+  text-align: left;
+}
+
+.director-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.director-container p {
+  margin: 0; /* Remove default margin */
+}
+
+.director-container a p {
+  display: inline; /* Ensure the director names are inline */
+}
+
 .resized-image {
   width: 150px;
   height: 225px;
   object-fit: cover;
+  margin: 1rem;
 }
 
 @media (max-width: 768px) {
