@@ -48,6 +48,28 @@ main {
   }
 }
 
+/* MOVIE LIST */
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.movie-card {
+  list-style-type: none;
+  margin-bottom: 1rem;
+}
+
+.movie-card a {
+  text-decoration: none;
+  color: black;
+}
+
+.movie-card h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
 .resized-image {
   width: 150px;
   height: 225px;
