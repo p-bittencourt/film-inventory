@@ -52,12 +52,15 @@ main {
 .movie-list {
   display: flex;
   flex-wrap: wrap;
+  padding: 0;
   gap: 1rem;
 }
 
 .movie-card {
   list-style-type: none;
   margin-bottom: 1rem;
+  flex: 1 1 calc(45% - 1rem); /* Take up 1/3 of the parent width minus the gap */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .movie-card a {
@@ -76,6 +79,11 @@ main {
   object-fit: cover;
 }
 
+@media (max-width: 768px) {
+  .movie-card {
+    flex: 1 1 100%;
+  }
+}
 .resized-image-detail {
   width: 300px;
   height: 450px;
