@@ -21,3 +21,12 @@ async function handleDelete(event) {
     alert('Incorrect password');
   }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  const hamburgerIcon = document.querySelector('.hamburger-icon');
+  const sidebar = document.querySelector('.sidebar');
+
+  hamburgerIcon.addEventListener('click', function () {
+    sidebar.classList.toggle('active');
+  });
+});

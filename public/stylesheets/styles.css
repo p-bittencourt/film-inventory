@@ -12,14 +12,116 @@ main {
 
 /* LAYOUT PAGE */
 
-.sidebar {
-  width: 15%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: beige;
-  padding-left: 1rem;
+/* Style the hamburger menu */
+.hamburger-menu {
+  position: fixed;
+  height: 50px;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1001;
+  cursor: pointer;
+  display: none; /* Hide by default */
+}
+
+.hamburger-icon {
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Show the sidebar when active */
+.sidebar.active {
+  display: block;
+}
+
+/* Style the sidebar content */
+.sidebar .content-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar .content-list h3 {
+  margin-top: 0;
+}
+
+.sidebar .content-list li {
+  margin: 0.5rem 0;
+}
+
+.sidebar .content-list a {
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar .sidebar-footer {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+}
+
+/* Media query for larger screens */
+@media (min-width: 769px) {
+  .hamburger-menu {
+    display: none; /* Hide hamburger menu on larger screens */
+  }
+
+  .sidebar {
+    display: flex; /* Show sidebar on larger screens */
+    justify-content: space-between;
+    flex-direction: column;
+    position: static; /* Reset position */
+    width: 15%; /* Reset width */
+    height: 100vh; /* Reset height */
+    background-color: beige; /* Reset background */
+    padding-left: 1rem;
+    box-shadow: none; /* Remove shadow */
+  }
+
+  .sidebar .content-list ul {
+    display: block; /* Ensure ul elements are block */
+    margin-top: 2rem;
+  }
+
+  .sidebar .content-list li {
+    display: list-item; /* Ensure li elements are list items */
+    margin: 0.5rem 0; /* Add margin for spacing */
+  }
+
+  .sidebar .content-list a {
+    color: inherit; /* Reset link color */
+  }
+
+  .sidebar .sidebar-footer {
+    position: static; /* Reset position */
+  }
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  main {
+    flex-direction: column; /* Stack sidebar on top of content */
+  }
+  .hamburger-menu {
+    display: block; /* Show hamburger menu on smaller screens */
+  }
+
+  .sidebar {
+    display: none; /* Hide sidebar by default on smaller screens */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+
+  .content {
+    width: 100%;
+    height: auto; /* Adjust height to fit content */
+  }
 }
 
 .content {
@@ -31,21 +133,6 @@ main {
 
 /* Media query for mobile devices */
 @media (max-width: 768px) {
-  main {
-    flex-direction: column; /* Stack sidebar on top of content */
-  }
-
-  .sidebar {
-    width: 100%;
-    height: auto; /* Adjust height to fit content */
-    flex-direction: row;
-  }
-
-  .content {
-    width: 100%;
-    height: auto; /* Adjust height to fit content */
-    padding-left: 1rem; /* Adjust padding for mobile */
-  }
 }
 
 /* MOVIE LIST */
