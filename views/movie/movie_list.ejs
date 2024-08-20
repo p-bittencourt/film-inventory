@@ -6,11 +6,12 @@
     <li class="movie-card">
       <h2><a href="<%=movie.url%>"><%= movie.title %></a></h2>
       <% if (movie.picture) { %>
-      <img
-        src="<%= movie.picture %>"
-        alt="<%= movie.title %>"
-        class="resized-image"
-      />
+      <a href="<%=movie.url%>"
+        ><img
+          src="<%= movie.picture %>"
+          alt="<%= movie.title %>"
+          class="resized-image"
+      /></a>
       <% } if (movie.summary) { %>
       <p>Summary: <%= movie.summary %></p>
       <% } if (movie.release_year) { %>
