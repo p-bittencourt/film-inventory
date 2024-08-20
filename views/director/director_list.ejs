@@ -3,8 +3,8 @@
   <% if (directors.length) { %>
   <ul>
     <% directors.forEach((director, index) => { %>
-    <li>
-      <div class="director-card">
+    <li class="item-list">
+      <div class="item-card">
         <h2><a href="<%=director.url%>"><%= director.name %></a></h2>
         <% if (director.age) { %>
         <p>Age: <%= director.age %></p>
@@ -19,7 +19,7 @@
         <% } %>
         <ul>
           <% if (movies.length) {%> <% if (movies[index].length) { %>
-          <h3>Seen in:</h3>
+          <h3>Directed:</h3>
           <% movies[index].forEach(movie => { %>
           <li><a href="<%=movie.url%>"><%= movie.title %></a></li>
           <% }); %> <% } else { %>

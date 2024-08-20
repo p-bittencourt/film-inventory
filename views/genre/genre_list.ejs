@@ -1,9 +1,9 @@
 <div class="list-page">
   <h1>List of Genres</h1>
   <% if (genres.length) { %>
-  <ul>
+  <ul class="item-list">
     <% genres.forEach(genre => { %>
-    <li>
+    <li class="genre-info">
       <a href="/genres/<%= genre._id %>"><h3><%= genre.name %></h3></a>
     </li>
     <% }); %>

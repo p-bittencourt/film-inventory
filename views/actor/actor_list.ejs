@@ -3,8 +3,8 @@
   <% if (actors.length) { %>
   <ul>
     <% actors.forEach((actor, index) => { %>
-    <li>
-      <div class="actor-card">
+    <li class="item-list">
+      <div class="item-card">
         <h2><a href="<%=actor.url%>"><%= actor.name %></a></h2>
         <% if (actor.age) { %>
         <p>Age: <%= actor.age %></p>
