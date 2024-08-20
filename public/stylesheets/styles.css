@@ -68,12 +68,13 @@ main {
     display: flex; /* Show sidebar on larger screens */
     justify-content: space-between;
     flex-direction: column;
-    position: static; /* Reset position */
-    width: 15%; /* Reset width */
-    height: 100vh; /* Reset height */
-    background-color: beige; /* Reset background */
+    position: static;
+    width: 15%;
+    max-width: 200px;
+    height: 100vh;
+    background-color: beige;
     padding-left: 1rem;
-    box-shadow: none; /* Remove shadow */
+    box-shadow: none;
   }
 
   .sidebar .content-list ul {
@@ -111,6 +112,7 @@ main {
     left: 0;
     width: 250px;
     height: 100%;
+    max-height: 450px;
     background-color: #333;
     color: white;
     padding: 1rem;
@@ -136,7 +138,7 @@ main {
 }
 
 /* MOVIE LIST */
-.movie-list {
+.item-list {
   display: flex;
   flex-wrap: wrap;
   padding: 0;
@@ -144,7 +146,7 @@ main {
   justify-content: space-evenly;
 }
 
-.movie-card {
+.item-card {
   list-style-type: none;
   margin-bottom: 1rem;
   flex: 1 1 calc(45% - 1rem);
@@ -161,31 +163,31 @@ main {
 }
 
 @media (max-width: 768px) {
-  .movie-list {
+  .item-list {
     flex-direction: column;
   }
 
-  .movie-card {
+  .item-card {
     flex: 1 1 90%; /* Take up 90% of the parent width on smaller screens */
     max-width: 90%; /* Ensure the card doesn't exceed 90% width */
   }
 }
 
-.movie-card a {
+.item-card a {
   text-decoration: none;
   color: black;
 }
 
-.movie-card h2 {
+.item-card h2 {
   margin: 0;
   font-size: 1.5rem;
 }
 
-.movie-card ul {
+.item-card ul {
   text-align: left;
 }
 
-.movie-card p {
+.item-card p {
   margin: 0;
 }
 
@@ -212,7 +214,7 @@ main {
 }
 
 @media (max-width: 768px) {
-  .movie-card {
+  .item-card {
     flex: 1 1 100%;
   }
 }

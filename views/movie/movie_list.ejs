@@ -1,9 +1,9 @@
 <div class="list-page">
   <h1>List of Movies</h1>
   <% if (movies.length) { %>
-  <ul class="movie-list">
+  <ul class="item-list">
     <% movies.forEach((movie, index) => { %>
-    <li class="movie-card">
+    <li class="item-card">
       <h2><a href="<%=movie.url%>"><%= movie.title %></a></h2>
       <% if (movie.picture) { %>
       <a href="<%=movie.url%>"
