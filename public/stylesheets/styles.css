@@ -10,7 +10,10 @@ main {
   display: flex;
 }
 
-/* LAYOUT PAGE */
+/* LAYOUT PAGE
+   STYLE SIDEBAR AND HAMBUGER MENU FOR MOBILE
+*/
+/* #region */
 
 /* Style the hamburger menu */
 .hamburger-menu {
@@ -56,6 +59,13 @@ main {
   position: absolute;
   bottom: 1rem;
   left: 1rem;
+}
+
+.content {
+  width: 85%;
+  height: 100vh;
+  overflow-y: auto; /* Make only the content scrollable */
+  padding-left: 1.5rem;
 }
 
 /* Media query for larger screens */
@@ -125,19 +135,10 @@ main {
     height: auto; /* Adjust height to fit content */
   }
 }
+/* #endregion */
 
-.content {
-  width: 85%;
-  height: 100vh;
-  overflow-y: auto; /* Make only the content scrollable */
-  padding-left: 1.5rem;
-}
-
-/* Media query for mobile devices */
-@media (max-width: 768px) {
-}
-
-/* MOVIE LIST */
+/* LIST PAGES */
+/* #region */
 .item-list {
   display: flex;
   flex-wrap: wrap;
@@ -232,4 +233,11 @@ main {
 .genre-info a {
   font-style: normal;
   text-decoration: none;
+}
+/* #endregion */
+
+.item-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
