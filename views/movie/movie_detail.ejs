@@ -1,67 +1,66 @@
-<div class="detail-page">
-  <div class="item-detail">
-    <h1><%=movie.title%></h1>
-    <% if (movie.summary) { %>
-    <p>Summary: <%= movie.summary %></p>
-    <% } %> <% if (movie.release_year) { %>
-    <p>Release Year: <%= movie.release_year %></p>
-    <% } %> <% if (directors.length) { %>
-    <div class="director-div">
-      <span>Director:</span>
-      <% directors.forEach(director => { %>
-      <a href="<%= director.url %>"> <span><%= director.name %></span></a>
-      <% }) %> <% } %>
-    </div>
-    <% if (genres.length) { %>
-    <div class="genre-div">
-      <span>Genre:</span>
-      <% genres.forEach(genre => { %>
-      <a href="<%= genre.url %>"> <span>- <%= genre.name %></span></a>
-      <% }) %> <% } %>
-    </div>
-    <% if (movie.picture) { %>
-    <img
-      src="<%= movie.picture %>"
-      alt="<%= movie.title %>"
-      class="resized-image-detail"
-    />
-    <% } %>
-    <div class="cast-div">
-      <h3>Cast:</h3>
-      <% if (cast.length > 0) { %> <% cast.forEach(actor => { %>
-      <p><a href="<%=actor.url%>"><%= actor.name %></a></p>
-      <% }); %> <% } else { %>
-      <p>No cast to display</p>
-      <% } %>
-      <div class="add-cast">
-        <form action="/movies/<%= movie.id %>/add-actor" method="post">
-          <label for="add-cast">Add cast members: </label>
-          <select id="add-cast" name="add-cast" multiple>
-            <% actors.forEach(function(actor) { %>
-            <option value="<%= actor._id %>" %>><%= actor.name %></option>
-            <% }); %>
-          </select>
-          <button type="submit">Add actor</button>
-        </form>
-        <a href="/actors/create" class="create-actor-button"
-          ><button>Create New Actor</button></a
-        >
-      </div>
-    </div>
-    <div class="card-buttons">
-      <a href="/movies/edit/<%= movie.id %>"><button>Edit</button></a>
-      <button type="button" onclick="showPasswordField()">Delete</button>
-      <form
-        id="deleteForm"
-        action="/movies/<%= movie.id %>?_method=DELETE"
-        method="post"
-        style="display: none; margin-top: 10px"
-        onsubmit="handleDelete(event);"
-      >
-        <label for="password">Enter password:</label>
-        <input type="password" name="password" id="password" required />
-        <button type="submit">Confirm Delete</button>
+<div class="item-detail">
+  <h1><%=movie.title%></h1>
+  <% if (movie.summary) { %>
+  <p>Summary: <%= movie.summary %></p>
+  <% } %> <% if (movie.release_year) { %>
+  <p>Release Year: <%= movie.release_year %></p>
+  <% } %> <% if (directors.length) { %>
+  <div class="director-div">
+    <span>Director:</span>
+    <% directors.forEach(director => { %>
+    <a href="<%= director.url %>"> <span><%= director.name %></span></a>
+    <% }) %> <% } %>
+  </div>
+  <% if (genres.length) { %>
+  <div class="genre-div">
+    <span>Genre:</span>
+    <% genres.forEach(genre => { %>
+    <a href="<%= genre.url %>"> <span>- <%= genre.name %></span></a>
+    <% }) %> <% } %>
+  </div>
+  <% if (movie.picture) { %>
+  <img
+    src="<%= movie.picture %>"
+    alt="<%= movie.title %>"
+    class="resized-image-detail"
+  />
+  <% } %>
+  <div class="cast-div">
+    <h3>Cast:</h3>
+    <% if (cast.length > 0) { %> <% cast.forEach(actor => { %>
+    <p><a href="<%=actor.url%>"><%= actor.name %></a></p>
+    <% }); %> <% } else { %>
+    <p>No cast to display</p>
+    <% } %> <% if (actors.length > 0) { %>
+    <div class="add-cast">
+      <form action="/movies/<%= movie.id %>/add-actor" method="post">
+        <label for="add-cast">Add cast members: </label>
+        <select id="add-cast" name="add-cast" multiple>
+          <% actors.forEach(function(actor) { %>
+          <option value="<%= actor._id %>" %>><%= actor.name %></option>
+          <% }); %>
+        </select>
+        <button type="submit">Add actor</button>
       </form>
+      <a href="/actors/create" class="create-actor-button"
+        ><button>Create New Actor</button></a
+      >
     </div>
+    <% } %>
+  </div>
+  <div class="card-buttons">
+    <a href="/movies/edit/<%= movie.id %>"><button>Edit</button></a>
+    <button type="button" onclick="showPasswordField()">Delete</button>
+    <form
+      id="deleteForm"
+      action="/movies/<%= movie.id %>?_method=DELETE"
+      method="post"
+      style="display: none; margin-top: 10px"
+      onsubmit="handleDelete(event);"
+    >
+      <label for="password">Enter password:</label>
+      <input type="password" name="password" id="password" required />
+      <button type="submit">Confirm Delete</button>
+    </form>
   </div>
 </div>
