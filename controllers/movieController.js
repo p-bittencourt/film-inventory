@@ -130,8 +130,12 @@ exports.movie_create_post = [
 
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitzed value/errors messages.
+      const allGenres = await Genre.find().exec();
+      const allDirectors = await Director.find().exec();
       res.render('./movie/movie_create', {
         movie: movie,
+        genres: allGenres,
+        directors: allDirectors,
         errors: errors.array(),
       });
       return;
@@ -212,8 +216,12 @@ exports.movie_update_post = [
 
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitzed value/errors messages.
+      const allGenres = await Genre.find().exec();
+      const allDirectors = await Director.find().exec();
       res.render('./movie/movie_create', {
         movie: movie,
+        genres: allGenres,
+        directors: allDirectors,
         errors: errors.array(),
       });
       return;
