@@ -15,7 +15,7 @@
   <div class="genre-div">
     <span>Genre:</span>
     <% genres.forEach(genre => { %>
-    <a href="<%= genre.url %>"> <span>- <%= genre.name %></span></a>
+    <a href="<%= genre.url %>"> <span> <%= genre.name %></span></a>
     <% }) %> <% } %>
   </div>
   <% if (movie.picture) { %>

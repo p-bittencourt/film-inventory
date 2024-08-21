@@ -1,18 +1,16 @@
-<div class="detail-page">
-  <div class="artist-data">
-    <h1><%=actor.name%></h1>
-    <% if (actor.age) { %>
-    <p>Age: <%= actor.age %></p>
-    <% } %> <% if (actor.nationality) { %>
-    <p>Nationality: <%= actor.nationality %></p>
-    <% } %> <% if (actor.picture) { %>
-    <img
-      src="<%= actor.picture %>"
-      alt="<%= actor.name %>"
-      class="resized-image-detail"
-    />
-    <% } %>
-  </div>
+<div class="item-detail">
+  <h1><%=actor.name%></h1>
+  <% if (actor.age) { %>
+  <p class="age">Age: <%= actor.age %></p>
+  <% } %> <% if (actor.nationality) { %>
+  <p>Nationality: <%= actor.nationality %></p>
+  <% } %> <% if (actor.picture) { %>
+  <img
+    src="<%= actor.picture %>"
+    alt="<%= actor.name %>"
+    class="resized-image-detail"
+  />
+  <% } %>
   <div class="movies-featuring">
     <h3>Movies:</h3>
     <% if (movies.length > 0) { %> <% movies.forEach(movie => { %>
