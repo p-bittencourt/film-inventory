@@ -10,11 +10,8 @@ main {
   display: flex;
 }
 
-/* LAYOUT PAGE
-   STYLE SIDEBAR AND HAMBUGER MENU FOR MOBILE
-*/
+/* LAYOUT PAGE*/
 /* #region */
-
 /* Style the hamburger menu */
 .hamburger-menu {
   position: fixed;
@@ -237,6 +234,8 @@ main {
 }
 /* #endregion */
 
+/* DETAIL PAGES */
+/* #region */
 .item-detail {
   display: flex;
   flex-direction: column;
@@ -273,3 +272,60 @@ main {
     margin-right: 0.5rem;
   }
 }
+/* #endregion */
+
+/* FORM PAGES */
+/* #region */
+.create-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  width: 95%;
+  background-color: beige;
+  border-radius: 10px; /* Rounded edges */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+
+.create-page h1 {
+  margin-bottom: 1.5rem; /* Space below the heading */
+}
+
+.create-page form {
+  width: 100%;
+  max-width: 600px; /* Limit the form width */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Space between form elements */
+}
+
+.create-page label {
+  font-weight: bold;
+  margin-bottom: 0.5rem; /* Space below the label */
+}
+
+.create-page input,
+.create-page select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+.create-page button {
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.create-page button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+/* #endregion */
