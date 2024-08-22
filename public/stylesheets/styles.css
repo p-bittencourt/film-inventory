@@ -1,3 +1,9 @@
+:root {
+  --main-color: beige;
+  --white: #eee;
+  --black: #333;
+}
+
 html,
 body {
   margin: 0;
@@ -25,7 +31,7 @@ main {
 
 .hamburger-icon {
   font-size: 2rem;
-  color: #333;
+  color: var(--black);
 }
 
 /* Show the sidebar when active */
@@ -48,7 +54,7 @@ main {
 }
 
 .sidebar .content-list a {
-  color: white;
+  color: var(--white);
   text-decoration: none;
 }
 
@@ -63,6 +69,7 @@ main {
   height: 100vh;
   overflow-y: auto; /* Make only the content scrollable */
   padding-left: 1.5rem;
+  background-color: var(--white);
 }
 
 /* Media query for larger screens */
@@ -79,7 +86,7 @@ main {
     width: 15%;
     max-width: 200px;
     height: 100vh;
-    background-color: beige;
+    background-color: var(--main-color);
     padding-left: 1rem;
     box-shadow: none;
   }
@@ -120,8 +127,8 @@ main {
     width: 250px;
     height: 100%;
     max-height: 450px;
-    background-color: #333;
-    color: white;
+    background-color: var(--black);
+    color: var(--white);
     padding: 1rem;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     z-index: 1000;
@@ -157,7 +164,7 @@ main {
   padding: 1rem;
   border-radius: 10px; /* Rounded edges */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
-  background-color: beige; /* Ensure the background is white */
+  background-color: var(--main-color); /* Ensure the background is white */
   transition: transform 0.2s; /* Smooth transition for hover effect */
 }
 
@@ -174,7 +181,7 @@ main {
 
 .item-card a {
   text-decoration: none;
-  color: black;
+  color: var(--black);
 }
 
 .item-card h2 {
@@ -244,7 +251,7 @@ main {
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   width: 95%;
-  background-color: beige;
+  background-color: var(--main-color);
   border-radius: 10px; /* Rounded edges */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
 }
@@ -284,7 +291,7 @@ main {
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   width: 95%;
-  background-color: beige;
+  background-color: var(--main-color);
   border-radius: 10px; /* Rounded edges */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
 }
@@ -310,7 +317,7 @@ main {
 .create-page select {
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--white);
   border-radius: 5px;
   box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }
