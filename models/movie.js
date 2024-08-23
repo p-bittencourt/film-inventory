@@ -38,4 +38,14 @@ MovieSchema.pre('remove', async function (next) {
   next();
 });
 
+// Pre-remove middleware to handle cascading deletes
+MovieSchema.pre('remove', async function (next) {
+  const movieId = this._id;
+  await mongoose
+    .model('Director')
+    .updateMany({ movies: movieId }, { $pull: { movies: movieId } })
+    .exec();
+  next();
+});
+
 module.exports = mongoose.model('Movie', MovieSchema);

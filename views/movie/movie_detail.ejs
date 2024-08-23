@@ -14,12 +14,11 @@
     </div>
     <% if (genres.length) { %>
     <div class="genre-div">
-      <span>Genre:</span>
       <% genres.forEach(genre => { %>
       <a href="<%= genre.url %>"> <span> <%= genre.name %></span></a>
-      <% }) %> <% } %>
+      <% }) %>
     </div>
-    <% if (movie.picture) { %>
+    <% } %> <% if (movie.picture) { %>
     <img
       src="<%= movie.picture %>"
       alt="<%= movie.title %>"

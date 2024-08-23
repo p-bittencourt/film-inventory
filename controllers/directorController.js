@@ -125,6 +125,8 @@ exports.director_detail = asyncHandler(async (req, res, next) => {
   const director = await Director.findById(req.params.id).exec();
   const moviesFromDirector = await getMoviesFrom(director);
 
+  console.log(director);
+
   res.render('./director/director_detail', {
     director: director,
     movies: moviesFromDirector,

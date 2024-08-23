@@ -103,6 +103,14 @@ exports.movie_create_post = [
     .optional({ checkFalsy: true })
     .isURL()
     .withMessage('Invalid url'),
+  body('genre.*')
+    .optional({ checkFalsy: true })
+    .isMongoId()
+    .withMessage('Invalid genre ID'),
+  body('director.*')
+    .optional({ checkFalsy: true })
+    .isMongoId()
+    .withMessage('Invalid director ID'),
 
   // Process request after validation and sanitization
   asyncHandler(async (req, res, next) => {
@@ -124,7 +132,7 @@ exports.movie_create_post = [
       release_date,
       summary,
       picture,
-      genre,
+      genre: Array.isArray(genre) ? genre : genre ? [genre] : [],
       director: directorIds,
     });
 
@@ -190,6 +198,14 @@ exports.movie_update_post = [
     .optional({ checkFalsy: true })
     .isURL()
     .withMessage('Invalid url'),
+  body('genre.*')
+    .optional({ checkFalsy: true })
+    .isMongoId()
+    .withMessage('Invalid genre ID'),
+  body('director.*')
+    .optional({ checkFalsy: true })
+    .isMongoId()
+    .withMessage('Invalid director ID'),
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
@@ -209,7 +225,7 @@ exports.movie_update_post = [
       release_date,
       summary,
       picture,
-      genre,
+      genre: Array.isArray(genre) ? genre : genre ? [genre] : [],
       director: directorIds,
       _id: req.params.id,
     });
@@ -253,6 +269,10 @@ exports.movie_update_post = [
 exports.movie_delete = asyncHandler(async (req, res, next) => {
   const movieId = req.params.id;
   await Actor.updateMany(
+    { movies: movieId },
+    { $pull: { movies: movieId } }
+  ).exec();
+  await Director.updateMany(
     { movies: movieId },
     { $pull: { movies: movieId } }
   ).exec();
