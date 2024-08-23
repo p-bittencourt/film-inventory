@@ -115,6 +115,7 @@ main {
   main {
     flex-direction: column; /* Stack sidebar on top of content */
   }
+
   .hamburger-menu {
     display: block; /* Show hamburger menu on smaller screens */
   }
@@ -138,6 +139,10 @@ main {
     width: 100%;
     height: auto; /* Adjust height to fit content */
     padding-left: 0;
+  }
+
+  h1 {
+    margin-left: 1rem;
   }
 }
 /* #endregion */
@@ -174,14 +179,30 @@ main {
   -ms-overflow-style: none; /* For Internet Explorer and Edge */
 }
 
+.item-card img {
+  padding: 0.5rem;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.item-card img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
 @media (max-width: 768px) {
   .item-list {
     flex-direction: column;
+    align-items: center; /* Center the items */
   }
 
   .item-card {
     flex: 1 1 90%; /* Take up 90% of the parent width on smaller screens */
     max-width: 90%; /* Ensure the card doesn't exceed 90% width */
+    width: 90%; /* Ensure the card has a consistent width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
   }
 }
 
