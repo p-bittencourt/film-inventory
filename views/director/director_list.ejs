@@ -1,32 +1,30 @@
 <div class="list-page">
   <h1>List of Directors</h1>
   <% if (directors.length) { %>
-  <ul>
+  <ul class="item-list">
     <% directors.forEach((director, index) => { %>
-    <li class="item-list">
-      <div class="item-card">
-        <h2><a href="<%=director.url%>"><%= director.name %></a></h2>
-        <% if (director.age) { %>
-        <p>Age: <%= director.age %></p>
-        <% } %> <% if (director.nationality) { %>
-        <p>Nationality: <%= director.nationality %></p>
-        <% } %> <% if (director.picture) { %>
-        <img
-          src="<%= director.picture %>"
-          alt="<%= director.name %>"
-          class="resized-image"
-        />
-        <% } %>
-        <ul>
-          <% if (movies.length) {%> <% if (movies[index].length) { %>
-          <h3>Directed:</h3>
-          <% movies[index].forEach(movie => { %>
-          <li><a href="<%=movie.url%>"><%= movie.title %></a></li>
-          <% }); %> <% } else { %>
-          <p>No movies registered</p>
-          <% } %> <% } %>
-        </ul>
-      </div>
+    <li class="item-card">
+      <h2><a href="<%=director.url%>"><%= director.name %></a></h2>
+      <% if (director.age) { %>
+      <p>Age: <%= director.age %></p>
+      <% } %> <% if (director.nationality) { %>
+      <p>Nationality: <%= director.nationality %></p>
+      <% } %> <% if (director.picture) { %>
+      <img
+        src="<%= director.picture %>"
+        alt="<%= director.name %>"
+        class="resized-image"
+      />
+      <% } %>
+      <ul>
+        <% if (movies.length) {%> <% if (movies[index].length) { %>
+        <h3>Directed:</h3>
+        <% movies[index].forEach(movie => { %>
+        <li><a href="<%=movie.url%>"><%= movie.title %></a></li>
+        <% }); %> <% } else { %>
+        <p>No movies registered</p>
+        <% } %> <% } %>
+      </ul>
     </li>
     <% }); %>
   </ul>
