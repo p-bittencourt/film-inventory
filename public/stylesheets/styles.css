@@ -162,11 +162,16 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
   padding: 1rem;
   border-radius: 10px; /* Rounded edges */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
   background-color: var(--main-color); /* Ensure the background is white */
   transition: transform 0.2s; /* Smooth transition for hover effect */
+  height: 500px; /* Fixed height */
+  overflow-y: auto; /* Make content scrollable if it exceeds the fixed height */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
 }
 
 @media (max-width: 768px) {
