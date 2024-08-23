@@ -10,11 +10,12 @@
       <% } %> <% if (director.nationality) { %>
       <p>Nationality: <%= director.nationality %></p>
       <% } %> <% if (director.picture) { %>
-      <img
-        src="<%= director.picture %>"
-        alt="<%= director.name %>"
-        class="resized-image"
-      />
+      <a href="<%=director.url%>"
+        ><img
+          src="<%= director.picture %>"
+          alt="<%= director.name %>"
+          class="resized-image"
+      /></a>
       <% } %>
       <ul>
         <% if (movies.length) {%> <% if (movies[index].length) { %>
