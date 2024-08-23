@@ -278,6 +278,78 @@ main {
   margin: 0;
 }
 
+.add-cast {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-cast form {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  align-items: center;
+}
+.add-cast label {
+  display: block;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+
+.add-cast select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-cast button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.add-cast button:hover {
+  background-color: #0056b3;
+}
+
+.card-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.card-buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.card-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.card-buttons a button {
+  background-color: #28a745;
+}
+
+.card-buttons a button:hover {
+  background-color: #218838;
+}
+
 @media (max-width: 768px) {
   .item-detail {
     margin-top: 60px;

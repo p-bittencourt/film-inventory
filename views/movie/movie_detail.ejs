@@ -35,6 +35,9 @@
     </div>
     <% if (actors.length > 0) { %>
     <div class="add-cast">
+      <a href="/actors/create" class="create-actor-button"
+        ><button>Create New Actor</button></a
+      >
       <form action="/movies/<%= movie.id %>/add-actor" method="post">
         <label for="add-cast">Add cast members: </label>
         <select id="add-cast" name="add-cast" multiple>
@@ -44,25 +47,22 @@
         </select>
         <button type="submit">Add actor</button>
       </form>
-      <a href="/actors/create" class="create-actor-button"
-        ><button>Create New Actor</button></a
-      >
     </div>
     <% } %>
     <div class="card-buttons">
       <a href="/movies/edit/<%= movie.id %>"><button>Edit</button></a>
       <button type="button" onclick="showPasswordField()">Delete</button>
-      <form
-        id="deleteForm"
-        action="/movies/<%= movie.id %>?_method=DELETE"
-        method="post"
-        style="display: none; margin-top: 10px"
-        onsubmit="handleDelete(event);"
-      >
-        <label for="password">Enter password:</label>
-        <input type="password" name="password" id="password" required />
-        <button type="submit">Confirm Delete</button>
-      </form>
     </div>
+    <form
+      id="deleteForm"
+      action="/movies/<%= movie.id %>?_method=DELETE"
+      method="post"
+      style="display: none; margin-top: 10px"
+      onsubmit="handleDelete(event);"
+    >
+      <label for="password">Enter password:</label>
+      <input type="password" name="password" id="password" required />
+      <button type="submit">Confirm Delete</button>
+    </form>
   </div>
 </div>
