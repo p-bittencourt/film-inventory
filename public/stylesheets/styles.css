@@ -310,6 +310,13 @@ main {
   margin-bottom: 0;
 }
 
+.item-detail-card {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .age {
   margin: 0;
 }
@@ -332,7 +339,12 @@ main {
   color: var(--black);
 }
 
+.cast-div {
+  width: 90%;
+}
+
 .add-cast {
+  width: 90%;
   margin-top: 1rem;
   padding: 1rem;
   border: 1px solid #ccc;

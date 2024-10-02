@@ -13,12 +13,12 @@
           class="resized-image"
       /></a>
       <% } if (movie.summary) { %>
-      <p>Summary: <%= movie.summary %></p>
+      <p><strong>Summary:</strong> <%= movie.summary %></p>
       <% } if (movie.release_year) { %>
-      <p>Release Year: <%= movie.release_year %></p>
+      <p><strong>Release Year:</strong> <%= movie.release_year %></p>
       <% } if (directors.length) { if (directors[index].length) { %>
       <div class="director-container">
-        <p style="display: inline">Director:</p>
+        <p style="display: inline"><strong>Director:</strong></p>
         <% directors[index].forEach(director => { %>
         <a href="<%= director.url %>">
           <p style="display: inline"><%= director.name %></p></a

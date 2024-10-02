@@ -1,13 +1,13 @@
 <div class="item-detail">
-  <div>
+  <div class="item-detail-card">
     <h1><%=movie.title%></h1>
     <% if (movie.summary) { %>
-    <p>Summary: <%= movie.summary %></p>
+    <p><strong>Summary:</strong> <%= movie.summary %></p>
     <% } %> <% if (movie.release_year) { %>
-    <p>Release Year: <%= movie.release_year %></p>
+    <p><strong>Release Year:</strong> <%= movie.release_year %></p>
     <% } %> <% if (directors.length) { %>
     <div class="director-div">
-      <span>Director:</span>
+      <span><strong>Director:</strong></span>
       <% directors.forEach(director => { %>
       <a href="<%= director.url %>"> <span><%= director.name %></span></a>
       <% }) %> <% } %>
