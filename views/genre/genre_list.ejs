@@ -3,8 +3,10 @@
   <% if (genres.length) { %>
   <ul class="item-list">
     <% genres.forEach(genre => { %>
-    <li class="genre-info">
-      <a href="/genres/<%= genre._id %>"><h3><%= genre.name %></h3></a>
+    <li class="item-card">
+      <a href="/genres/<%= genre._id %>"
+        ><h3 class="genre-list-name"><%= genre.name %></h3></a
+      >
     </li>
     <% }); %>
   </ul>

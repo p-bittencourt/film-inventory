@@ -3,7 +3,7 @@
   <h3>Movies in this genre:</h3>
   <div class="movies-in-genre">
     <% if (movies.length > 0) { %> <% movies.forEach(movie => { %>
-    <p><a href="<%=movie.url%>"><%= movie.title %></a></p>
+    <p class="detail-info"><a href="<%=movie.url%>"><%= movie.title %></a></p>
     <% }); %> <% } else { %>
     <p>No movies to display</p>
     <% } %>

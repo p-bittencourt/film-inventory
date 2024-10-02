@@ -224,6 +224,10 @@ main {
   margin: 0;
 }
 
+.genre-list-name {
+  font-size: x-large;
+}
+
 .director-container {
   display: flex;
   align-items: center;
@@ -309,7 +313,7 @@ main {
   margin: 0;
 }
 
-.cast-div p {
+.detail-info {
   padding: 0.5rem 1rem;
   margin: 0.5rem 0;
   border: 1px solid #ccc;
@@ -318,30 +322,12 @@ main {
   transition: background-color 0.3s, transform 0.3s;
 }
 
-.cast-div p:hover {
+.detail-info:hover {
   background-color: #e0e0e0;
   transform: scale(1.05);
 }
 
-.cast-div a {
-  color: var(--black);
-}
-
-.movies-featuring p {
-  padding: 0.5rem 1rem;
-  margin: 0.5rem 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f0f0f0;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.movies-featuring p:hover {
-  background-color: #e0e0e0;
-  transform: scale(1.05);
-}
-
-.movies-featuring a {
+.detail-info a {
   color: var(--black);
 }
 
