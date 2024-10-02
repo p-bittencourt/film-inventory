@@ -138,6 +138,7 @@ main {
   .content {
     width: 100%;
     height: auto; /* Adjust height to fit content */
+    min-height: 100vh;
     padding-left: 0;
   }
 
