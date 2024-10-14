@@ -7,13 +7,20 @@ const asyncHandler = require('express-async-handler');
 exports.director_list = asyncHandler(async (req, res, next) => {
   const allDirectors = await Director.find().exec();
   const moviesByDirector = [];
+
+  // order alphabetically
+  const sortedDirectors = allDirectors
+    .slice()
+    .sort((a, b) => a.name.localeCompare(b.name));
+
   // loop through all actors in the list to get the movies they feature in
-  for (const director in allDirectors) {
-    const movie = await getMoviesFrom(allDirectors[director]);
+  for (const director in sortedDirectors) {
+    const movie = await getMoviesFrom(sortedDirectors[director]);
     moviesByDirector.push(movie);
   }
+
   res.render('./director/director_list', {
-    directors: allDirectors,
+    directors: sortedDirectors,
     movies: moviesByDirector,
   });
 });

@@ -32,10 +32,15 @@ async function getDirectorObjects(directors) {
 exports.movie_list = asyncHandler(async (req, res, next) => {
   // get all movies from the db
   const allMovies = await Movie.find().exec();
+  // order movies alhabetically
+  const sortedMovies = allMovies
+    .slice()
+    .sort((a, b) => a.title.localeCompare(b.title));
   // loop through the movies and get the cast from each one to send to the view
+
   const movieCast = [];
   const movieDirectors = [];
-  for (eachMovie of allMovies) {
+  for (eachMovie of sortedMovies) {
     const cast = await getMovieCast(eachMovie);
     const directors = await getDirectorObjects(eachMovie.director);
     movieCast.push(cast);
@@ -43,7 +48,7 @@ exports.movie_list = asyncHandler(async (req, res, next) => {
   }
 
   res.render('./movie/movie_list', {
-    movies: allMovies,
+    movies: sortedMovies,
     cast: movieCast,
     directors: movieDirectors,
   });

@@ -6,7 +6,12 @@ const asyncHandler = require('express-async-handler');
 // Display all genres
 exports.genre_list = asyncHandler(async (req, res, next) => {
   const allGenres = await Genre.find().exec();
-  res.render('./genre/genre_list', { genres: allGenres });
+
+  const sortedGenres = allGenres
+    .slice()
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  res.render('./genre/genre_list', { genres: sortedGenres });
 });
 
 // Get genre form
