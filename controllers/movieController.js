@@ -30,16 +30,39 @@ async function getDirectorObjects(directors) {
 
 // Movie list
 exports.movie_list = asyncHandler(async (req, res, next) => {
+  const { genre, director, actor } = req.query;
+
+  const query = {};
+  if (genre) {
+    query.genre = genre;
+  }
+  if (director) {
+    query.director = director;
+  }
+  if (actor) {
+    // Fetch actor and use their associated movie list
+    const actorObj = await Actor.findById(actor).exec();
+    console.log(actor);
+    console.log(actorObj);
+    if (actorObj) {
+      query._id = { $in: actorObj.movies }; // assumes 'movies' is an array in Actor model
+    }
+  }
+
   // get all movies from the db
-  const allMovies = await Movie.find().exec();
+  const filteredMovies = await Movie.find(query)
+    .populate('genre director')
+    .exec();
+
   // order movies alhabetically
-  const sortedMovies = allMovies
+  const sortedMovies = filteredMovies
     .slice()
     .sort((a, b) => a.title.localeCompare(b.title));
-  // loop through the movies and get the cast from each one to send to the view
 
   const movieCast = [];
   const movieDirectors = [];
+
+  // loop through the movies and get the cast and director from each one to send to the view
   for (eachMovie of sortedMovies) {
     const cast = await getMovieCast(eachMovie);
     const directors = await getDirectorObjects(eachMovie.director);
@@ -47,10 +70,18 @@ exports.movie_list = asyncHandler(async (req, res, next) => {
     movieDirectors.push(directors);
   }
 
+  // get all cast, directors and genres to send to the view for filtering
+  const allGenres = await Genre.find().exec();
+  const allDirectors = await Director.find().exec();
+  const allActors = await Actor.find().exec();
+
   res.render('./movie/movie_list', {
     movies: sortedMovies,
     cast: movieCast,
-    directors: movieDirectors,
+    movieDirectors: movieDirectors,
+    allGenres: allGenres,
+    allDirectors: allDirectors,
+    allActors: allActors,
   });
 });
 
