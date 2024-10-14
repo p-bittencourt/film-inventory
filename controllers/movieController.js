@@ -42,8 +42,6 @@ exports.movie_list = asyncHandler(async (req, res, next) => {
   if (actor) {
     // Fetch actor and use their associated movie list
     const actorObj = await Actor.findById(actor).exec();
-    console.log(actor);
-    console.log(actorObj);
     if (actorObj) {
       query._id = { $in: actorObj.movies }; // assumes 'movies' is an array in Actor model
     }
