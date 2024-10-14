@@ -18,12 +18,12 @@
       /></a>
       <% } %>
       <ul>
-        <% if (movies.length) {%> <% if (movies[index].length) { %>
         <h3>Seen in:</h3>
-        <% movies[index].forEach(movie => { %>
+        <% if (movies.length) {%> <% if (movies[index].length) { %> <%
+        movies[index].forEach(movie => { %>
         <li><a href="<%=movie.url%>"><%= movie.title %></a></li>
         <% }); %> <% } else { %>
-        <h3>No movies registered</h3>
+        <p>No movies registered</p>
         <% } %> <% } %>
       </ul>
     </li>
