@@ -332,6 +332,53 @@ main {
 .filter-options button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
+
+@media (max-width: 768px) {
+  .filter-options form {
+    flex-direction: column; /* Stack form elements vertically */
+    align-items: stretch; /* Stretch form elements to fill the width */
+  }
+
+  .filter-options label,
+  .filter-options select,
+  .filter-options button {
+    width: 100%; /* Make each element take up the full width */
+    margin: 0.25rem 0; /* Reduce vertical margin for spacing */
+  }
+
+  .filter-options label {
+    text-align: left; /* Align labels to the left */
+    margin-right: 0; /* Remove right margin */
+  }
+
+  .filter-options select,
+  .filter-options button {
+    padding: 0.5rem; /* Reduce padding to make elements more compact */
+  }
+}
+
+/* Hide the toggle button by default */
+#toggle-filters {
+  display: none;
+}
+
+/* Show the toggle button and hide filter options on mobile */
+@media (max-width: 768px) {
+  #toggle-filters {
+    display: block;
+  }
+
+  #filter-options {
+    display: none;
+  }
+}
+
+/* Show filter options by default on desktop */
+@media (min-width: 769px) {
+  #filter-options {
+    display: block !important;
+  }
+}
 /* #endregion */
 
 /* DETAIL PAGES */

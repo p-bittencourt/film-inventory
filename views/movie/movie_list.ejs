@@ -1,6 +1,7 @@
-<div class="filter-options">
+<button id="toggle-filters" class="toggle-filters">Show Filters</button>
+<div id="filter-options" class="filter-options">
   <form method="GET" action="/movies">
-    <label for="genre">Filter by Genre</label>
+    <label for="genre">Filter by Genre:</label>
     <select name="genre" id="genre">
       <option value="">All</option>
       <% allGenres.forEach(genre => { %>

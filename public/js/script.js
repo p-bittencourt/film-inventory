@@ -29,4 +29,22 @@ document.addEventListener('DOMContentLoaded', function () {
   hamburgerIcon.addEventListener('click', function () {
     sidebar.classList.toggle('active');
   });
+
+  const toggleButton = document.getElementById('toggle-filters');
+  const filterOptions = document.getElementById('filter-options');
+
+  if (window.innerWidth <= 768) {
+    toggleButton.addEventListener('click', function () {
+      if (
+        filterOptions.style.display === 'none' ||
+        filterOptions.style.display === ''
+      ) {
+        filterOptions.style.display = 'block';
+        toggleButton.textContent = 'Hide Filters';
+      } else {
+        filterOptions.style.display = 'none';
+        toggleButton.textContent = 'Show Filters';
+      }
+    });
+  }
 });
