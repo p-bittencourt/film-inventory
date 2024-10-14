@@ -1,6 +1,6 @@
 :root {
-  --main-color: beige;
-  --white: #eee;
+  --main-color: rgb(245, 245, 202);
+  --white: #faf7f7;
   --black: #333;
 }
 
@@ -223,6 +223,15 @@ main {
 
 .item-card p {
   margin: 0;
+}
+
+.summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 
 .genre-list-name {
