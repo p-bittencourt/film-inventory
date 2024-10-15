@@ -7,7 +7,8 @@ const asyncHandler = require('express-async-handler');
 
 // Helper function
 async function getMovieCast(movie) {
-  return await Actor.find({ movies: movie._id }).exec();
+  const cast = await Actor.find({ movies: movie._id }).exec();
+  return cast.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 async function getGenreObjects(genres) {
@@ -72,6 +73,9 @@ exports.movie_list = asyncHandler(async (req, res, next) => {
   const allGenres = await Genre.find().exec();
   const allDirectors = await Director.find().exec();
   const allActors = await Actor.find().exec();
+  allGenres.sort((a, b) => a.name.localeCompare(b.name));
+  allDirectors.sort((a, b) => a.name.localeCompare(b.name));
+  allActors.sort((a, b) => a.name.localeCompare(b.name));
 
   res.render('./movie/movie_list', {
     movies: sortedMovies,

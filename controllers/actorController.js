@@ -26,7 +26,7 @@ exports.actor_list = asyncHandler(async (req, res, next) => {
 
 // Get actor form
 exports.actor_create_get = asyncHandler(async (req, res, next) => {
-  const allMovies = await Movie.find().exec();
+  const allMovies = await sortedMovieList();
   res.render('./actor/actor_create', { actor: '', movies: allMovies });
 });
 
@@ -127,7 +127,7 @@ exports.actor_detail = asyncHandler(async (req, res, next) => {
 // Actor update
 exports.actor_update_get = asyncHandler(async (req, res, next) => {
   const actor = await Actor.findById(req.params.id);
-  const allMovies = await Movie.find().exec();
+  const allMovies = await sortedMovieList();
   res.render('./actor/actor_create', { actor: actor, movies: allMovies });
 });
 
@@ -235,5 +235,12 @@ async function getMoviesFeaturing(actor) {
     const movie = await Movie.findById(movieId).exec();
     moviesByActor.push(movie);
   }
+  moviesByActor.sort((a, b) => a.title.localeCompare(b.title));
   return moviesByActor;
+}
+
+async function sortedMovieList() {
+  const allMovies = await Movie.find().exec();
+  allMovies.sort((a, b) => a.title.localeCompare(b.title));
+  return allMovies;
 }

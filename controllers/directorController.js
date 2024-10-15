@@ -27,7 +27,7 @@ exports.director_list = asyncHandler(async (req, res, next) => {
 
 // Get director form
 exports.director_create_get = asyncHandler(async (req, res, next) => {
-  const allMovies = await Movie.find().exec();
+  const allMovies = await sortedMovieList();
   res.render('./director/director_create', { director: '', movies: allMovies });
 });
 
@@ -131,9 +131,6 @@ exports.director_create_post = [
 exports.director_detail = asyncHandler(async (req, res, next) => {
   const director = await Director.findById(req.params.id).exec();
   const moviesFromDirector = await getMoviesFrom(director);
-
-  console.log(director);
-
   res.render('./director/director_detail', {
     director: director,
     movies: moviesFromDirector,
@@ -143,7 +140,7 @@ exports.director_detail = asyncHandler(async (req, res, next) => {
 // Director update
 exports.director_update_get = asyncHandler(async (req, res, next) => {
   const director = await Director.findById(req.params.id);
-  const allMovies = await Movie.find().exec();
+  const allMovies = await sortedMovieList();
   res.render('./director/director_create', {
     director: director,
     movies: allMovies,
@@ -274,5 +271,12 @@ async function getMoviesFrom(director) {
     const movie = await Movie.findById(movieId).exec();
     moviesFromDirector.push(movie);
   }
+  moviesFromDirector.sort((a, b) => a.title.localeCompare(b.title));
   return moviesFromDirector;
+}
+
+async function sortedMovieList() {
+  const allMovies = await Movie.find().exec();
+  allMovies.sort((a, b) => a.title.localeCompare(b.title));
+  return allMovies;
 }

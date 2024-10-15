@@ -61,8 +61,6 @@ exports.genre_create_post = [
 exports.genre_detail = asyncHandler(async (req, res, next) => {
   const genre = await Genre.findById(req.params.id).exec();
   const allMoviesByGenre = await Movie.find({ genre: genre._id }).exec();
-  console.log(genre);
-  console.log(allMoviesByGenre);
   res.render('./genre/genre_detail', {
     genre: genre,
     movies: allMoviesByGenre,
