@@ -281,104 +281,138 @@ main {
   text-decoration: none;
 }
 
+/* General filter options styling */
 .filter-options {
   display: flex;
-  flex-wrap: wrap; /* Allow items to wrap to the next line if necessary */
-  justify-content: center; /* Center the items horizontally */
-  align-items: center; /* Center the items vertically */
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem 0;
   padding: 1rem;
   width: 95%;
   background-color: var(--main-color);
-  border-radius: 10px; /* Rounded edges */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Form layout for larger screens */
 .filter-options form {
   display: flex;
-  flex-wrap: wrap; /* Allow form elements to wrap to the next line if necessary */
-  gap: 1rem; /* Space between form elements */
-  width: 100%;
-  max-width: 100%; /* Ensure the form takes up the full width of the container */
+  flex-wrap: wrap;
+  gap: 1rem;
   justify-content: space-evenly;
   align-items: center;
+  width: 100%;
 }
 
+/* Form elements styling */
 .filter-options label {
   font-weight: bold;
-  margin-right: 0.5rem; /* Space to the right of the label */
+  margin-right: 0.5rem;
+}
+
+.filter-options select,
+.filter-options button {
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .filter-options select {
-  width: auto; /* Adjust width to fit content */
-  padding: 0.5rem;
   border: 1px solid var(--white);
-  border-radius: 5px;
-  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
-  justify-content: center;
+  width: auto;
 }
 
 .filter-options button {
-  padding: 0.75rem;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .filter-options button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
-@media (max-width: 768px) {
-  .filter-options form {
-    flex-direction: column; /* Stack form elements vertically */
-    align-items: stretch; /* Stretch form elements to fill the width */
-  }
-
-  .filter-options label,
-  .filter-options select,
-  .filter-options button {
-    width: 100%; /* Make each element take up the full width */
-    margin: 0.25rem 0; /* Reduce vertical margin for spacing */
-  }
-
-  .filter-options label {
-    text-align: left; /* Align labels to the left */
-    margin-right: 0; /* Remove right margin */
-  }
-
-  .filter-options select,
-  .filter-options button {
-    padding: 0.5rem; /* Reduce padding to make elements more compact */
-  }
+/* Hidden and Visible classes for controlling the display */
+.hidden {
+  display: none; /* Hides the element */
 }
 
-/* Hide the toggle button by default */
+.visible {
+  display: block; /* Shows the element */
+}
+
+/* Toggle Filters Button Styling */
 #toggle-filters {
-  display: none;
+  padding: 0.75rem; /* Match the filter button padding */
+  background-color: #007bff; /* Use the same blue color */
+  color: white; /* White text color */
+  border: none; /* Remove borders */
+  border-radius: 5px; /* Rounded corners to match other buttons */
+  cursor: pointer; /* Pointer cursor for interactive elements */
+  font-size: 1rem; /* Match the font size of the other buttons */
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+  margin-top: 1rem;
+  margin-left: 0.5rem;
 }
 
-/* Show the toggle button and hide filter options on mobile */
+/* Hover Effect */
+#toggle-filters:hover {
+  background-color: #0056b3; /* Darker blue on hover to match pattern */
+}
+/* Responsive mobile styling */
 @media (max-width: 768px) {
   #toggle-filters {
-    display: block;
+    display: block; /* Show the toggle button on mobile */
   }
 
-  #filter-options {
-    display: none;
+  .filter-options {
+    display: none; /* Hide filter options by default on mobile */
+  }
+
+  .filter-options.visible {
+    display: block; /* Show filter options when toggled */
+  }
+
+  .filter-options form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem; /* Reduced gap between form rows */
+  }
+
+  /* Adjust label and select to be side by side */
+  .filter-options label,
+  .filter-options select {
+    display: inline-block;
+    width: 95%; /* Side by side with equal width */
+    margin: 0; /* Remove margin */
+  }
+
+  /* Reduce padding for a more compact look */
+  .filter-options select,
+  .filter-options button {
+    padding: 0.4rem;
+  }
+
+  .filter-options button {
+    width: 100%; /* Ensure the button stays full width */
+    margin-top: 0.5rem; /* Add a bit of space between select and button */
   }
 }
 
-/* Show filter options by default on desktop */
 @media (min-width: 769px) {
-  #filter-options {
-    display: block !important;
+  #toggle-filters {
+    display: none; /* Hide the toggle button on desktop */
+  }
+
+  .filter-options {
+    display: block; /* Always show filter options on desktop */
   }
 }
+
 /* #endregion */
 
 /* DETAIL PAGES */

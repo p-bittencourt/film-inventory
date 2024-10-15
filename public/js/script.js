@@ -29,22 +29,28 @@ document.addEventListener('DOMContentLoaded', function () {
   hamburgerIcon.addEventListener('click', function () {
     sidebar.classList.toggle('active');
   });
+});
 
+document.addEventListener('DOMContentLoaded', function () {
   const toggleButton = document.getElementById('toggle-filters');
   const filterOptions = document.getElementById('filter-options');
 
+  // On mobile, ensure the filter options are hidden by default
   if (window.innerWidth <= 768) {
-    toggleButton.addEventListener('click', function () {
-      if (
-        filterOptions.style.display === 'none' ||
-        filterOptions.style.display === ''
-      ) {
-        filterOptions.style.display = 'block';
-        toggleButton.textContent = 'Hide Filters';
-      } else {
-        filterOptions.style.display = 'none';
-        toggleButton.textContent = 'Show Filters';
-      }
-    });
+    filterOptions.classList.add('hidden');
   }
+
+  toggleButton.addEventListener('click', function () {
+    filterOptions.classList.toggle('visible');
+    filterOptions.classList.toggle('hidden');
+    toggleButton.textContent = filterOptions.classList.contains('visible')
+      ? 'Hide Filters'
+      : 'Show Filters';
+
+    // Update accessibility
+    toggleButton.setAttribute(
+      'aria-expanded',
+      filterOptions.classList.contains('visible') ? 'true' : 'false'
+    );
+  });
 });
