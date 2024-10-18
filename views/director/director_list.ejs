@@ -19,12 +19,12 @@
       <% } %>
       <ul>
         <h3>Directed:</h3>
-        <% if (movies.length) {%> <% if (movies[index].length) { %> <%
-        movies[index].forEach(movie => { %>
-        <li><a href="<%=movie.url%>"><%= movie.title %></a></li>
+        <% if (director.movies && director.movies.length) { %> <%
+        director.movies.forEach(movie => { %>
+        <li><a href="<%= movie.url %>"><%= movie.title %></a></li>
         <% }); %> <% } else { %>
         <p>No movies registered</p>
-        <% } %> <% } %>
+        <% } %>
       </ul>
     </li>
     <% }); %>
