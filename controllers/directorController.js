@@ -75,12 +75,7 @@ exports.director_create_post = [
       movies,
     } = req.body;
 
-    let movieIds = [];
-    if (Array.isArray(movies)) {
-      movieIds = movies;
-    } else if (movies) {
-      movieIds = [movies];
-    }
+    let movieIds = getMovieIds(movies);
 
     const director = new Director({
       first_name,
@@ -190,14 +185,29 @@ exports.director_update_post = [
       movies,
     } = req.body;
 
-    let movieIds = [];
-    if (Array.isArray(movies)) {
-      movieIds = movies;
-    } else if (movies) {
-      movieIds = [movies];
+    let movieIds = getMovieIds(movies);
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitzed value/errors messages.
+      const allMovies = await Movie.find().exec();
+      res.render('./director/director_create', {
+        director: {
+          first_name,
+          family_name,
+          date_of_birth,
+          date_of_death,
+          nationality,
+          picture,
+          movies: movieIds,
+        }, // Pass sanitized data back to the form
+        movies: allMovies,
+        errors: errors.array(),
+      });
+      return;
     }
 
-    const director = new Director({
+    // Data is valid. Update the director
+    await Director.findByIdAndUpdate(req.params.id, {
       first_name,
       family_name,
       date_of_birth,
@@ -205,40 +215,17 @@ exports.director_update_post = [
       nationality,
       picture,
       movies: movieIds,
-      _id: req.params.id,
     });
 
-    if (!errors.isEmpty()) {
-      // There are errors. Render form again with sanitzed value/errors messages.
-      const allMovies = await Movie.find().exec();
-      console.log(errors);
-      res.render('./director/director_create', {
-        director: director,
-        movies: allMovies,
-        errors: errors.array(),
-      });
-      return;
-    } else {
-      // Data is valid. Save director
-      const updatedDirector = await Director.findByIdAndUpdate(
-        req.params.id,
-        director,
-        {}
+    // Assign director to the movie
+    if (movieIds.length) {
+      await Movie.updateMany(
+        { _id: { $in: movieIds } }, // Find movies by the provided IDs
+        { $addToSet: { director: req.params.id } } // Add director ID if not already present
       );
-
-      // Assign director to the movie
-      if (movieIds.length) {
-        for (const movieId in movieIds) {
-          const movie = await Movie.findById(movieIds[movieId]);
-          if (!movie.director.includes(director._id)) {
-            movie.director.push(director._id);
-            await movie.save();
-          }
-        }
-      }
-
-      res.redirect(updatedDirector.url);
     }
+
+    res.redirect(`/directors/${req.params.id}`);
   }),
 ];
 
@@ -271,4 +258,8 @@ async function sortedMovieList() {
   const allMovies = await Movie.find().exec();
   allMovies.sort((a, b) => a.title.localeCompare(b.title));
   return allMovies;
+}
+
+function getMovieIds(movies) {
+  return Array.isArray(movies) ? movies : movies ? [movies] : [];
 }
