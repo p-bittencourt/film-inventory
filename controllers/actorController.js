@@ -106,10 +106,14 @@ exports.actor_create_post = [
 
 // Actor detail page
 exports.actor_detail = asyncHandler(async (req, res, next) => {
-  const actor = await Actor.findById(req.params.id).exec();
-  const moviesByActor = await getMoviesFeaturing(actor);
+  const actor = await Actor.findById(req.params.id).populate('movies').exec();
 
-  res.render('./actor/actor_detail', { actor: actor, movies: moviesByActor });
+  // Sort movies
+  if (actor.movies && actor.movies.length) {
+    actor.movies.sort((a, b) => a.title.localeCompare(b.title));
+  }
+
+  res.render('./actor/actor_detail', { actor: actor });
 });
 
 // Actor update
@@ -212,16 +216,6 @@ exports.actor_delete = asyncHandler(async (req, res, next) => {
 });
 
 // Helper functions
-async function getMoviesFeaturing(actor) {
-  const moviesByActor = [];
-  for (const movieId of actor.movies) {
-    const movie = await Movie.findById(movieId).exec();
-    moviesByActor.push(movie);
-  }
-  moviesByActor.sort((a, b) => a.title.localeCompare(b.title));
-  return moviesByActor;
-}
-
 async function sortedMovieList() {
   const allMovies = await Movie.find().exec();
   allMovies.sort((a, b) => a.title.localeCompare(b.title));

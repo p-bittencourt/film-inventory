@@ -13,7 +13,8 @@
   <% } %>
   <div class="movies-featuring">
     <h3>Movies:</h3>
-    <% if (movies.length > 0) { %> <% movies.forEach(movie => { %>
+    <% if (actor.movies && actor.movies.length) { %> <%
+    actor.movies.forEach(movie => { %>
     <p class="detail-info"><a href="<%=movie.url%>"><%= movie.title %></a></p>
     <% }); %> <% } else { %>
     <p>No movies to display</p>

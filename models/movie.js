@@ -20,8 +20,6 @@ const MovieSchema = new Schema({
   },
   genre: [{ type: Schema.Types.ObjectId, ref: 'Genre' }],
   director: [{ type: Schema.Types.ObjectId, ref: 'Director' }],
-  // cast: [{ type: Schema.Types.ObjectId, ref: 'Actor' }], maybe cast isn't a property, but rather a search on the actors to find the movies they're in, and all actors associated to the movie get pulled this way
-  // director: associate to director id
 });
 
 MovieSchema.virtual('url').get(function () {
