@@ -116,11 +116,17 @@ exports.director_create_post = [
 
 // Director detail page
 exports.director_detail = asyncHandler(async (req, res, next) => {
-  const director = await Director.findById(req.params.id).exec();
-  const moviesFromDirector = await getMoviesFrom(director);
+  const director = await Director.findById(req.params.id)
+    .populate('movies')
+    .exec();
+
+  // Sort movies
+  if (director.movies && director.movies.length) {
+    director.movies.sort((a, b) => a.title.localeCompare(b.title));
+  }
+
   res.render('./director/director_detail', {
     director: director,
-    movies: moviesFromDirector,
   });
 });
 
