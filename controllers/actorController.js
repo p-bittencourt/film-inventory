@@ -75,12 +75,7 @@ exports.actor_create_post = [
       movies,
     } = req.body;
 
-    let movieIds = [];
-    if (Array.isArray(movies)) {
-      movieIds = movies;
-    } else if (movies) {
-      movieIds = [movies];
-    }
+    let movieIds = getMovieIds(movies);
 
     const actor = new Actor({
       first_name,
@@ -175,14 +170,28 @@ exports.actor_update_post = [
       movies,
     } = req.body;
 
-    let movieIds = [];
-    if (Array.isArray(movies)) {
-      movieIds = movies;
-    } else if (movies) {
-      movieIds = [movies];
+    let movieIds = getMovieIds(movies);
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitzed value/errors messages.
+      const allMovies = await Movie.find().exec();
+      res.render('./actor/actor_create', {
+        actor: {
+          first_name,
+          family_name,
+          date_of_birth,
+          date_of_death,
+          nationality,
+          picture,
+          movies: movieIds,
+        }, // Pass sanitized data back to the form
+        movies: allMovies,
+        errors: errors.array(),
+      });
+      return;
     }
 
-    const actor = new Actor({
+    await Actor.findByIdAndUpdate(req.params.id, {
       first_name,
       family_name,
       date_of_birth,
@@ -190,28 +199,9 @@ exports.actor_update_post = [
       nationality,
       picture,
       movies: movieIds,
-      _id: req.params.id,
     });
 
-    if (!errors.isEmpty()) {
-      // There are errors. Render form again with sanitzed value/errors messages.
-      const allMovies = await Movie.find().exec();
-      console.log(errors);
-      res.render('./actor/actor_create', {
-        actor: actor,
-        movies: allMovies,
-        errors: errors.array(),
-      });
-      return;
-    } else {
-      // Data is valid. Save actor
-      const updatedActor = await Actor.findByIdAndUpdate(
-        req.params.id,
-        actor,
-        {}
-      );
-      res.redirect(updatedActor.url);
-    }
+    res.redirect(`/actors/${req.params.id}`);
   }),
 ];
 
@@ -236,4 +226,8 @@ async function sortedMovieList() {
   const allMovies = await Movie.find().exec();
   allMovies.sort((a, b) => a.title.localeCompare(b.title));
   return allMovies;
+}
+
+function getMovieIds(movies) {
+  return Array.isArray(movies) ? movies : movies ? [movies] : [];
 }
