@@ -29,6 +29,10 @@ async function getDirectorObjects(directors) {
   return directorObjects;
 }
 
+function getDirectorIds(director) {
+  return Array.isArray(director) ? director : director ? [director] : [];
+}
+
 // Movie list
 exports.movie_list = asyncHandler(async (req, res, next) => {
   // Allow for filtering the movie list
@@ -164,12 +168,7 @@ exports.movie_create_post = [
     const { title, release_date, summary, picture, genre, director } = req.body;
 
     // Get director ids from the form
-    let directorIds = [];
-    if (Array.isArray(director)) {
-      directorIds = director;
-    } else if (director) {
-      directorIds = [director];
-    }
+    let directorIds = getDirectorIds(director);
 
     const movie = new Movie({
       title,
@@ -257,12 +256,7 @@ exports.movie_update_post = [
     const { title, release_date, summary, picture, genre, director } = req.body;
 
     // Get director ids from the form
-    let directorIds = [];
-    if (Array.isArray(director)) {
-      directorIds = director;
-    } else if (director) {
-      directorIds = [director];
-    }
+    let directorIds = getDirectorIds(director);
 
     const movie = new Movie({
       title,

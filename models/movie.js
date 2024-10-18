@@ -46,4 +46,10 @@ MovieSchema.pre('remove', async function (next) {
   next();
 });
 
+// Virtual for release year
+MovieSchema.virtual('release_year').get(function () {
+  if (!this.release_date) return ''; // If no release date, return empty string
+  return new Date(this.release_date).getFullYear();
+});
+
 module.exports = mongoose.model('Movie', MovieSchema);
