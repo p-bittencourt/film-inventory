@@ -31,6 +31,7 @@ async function getDirectorObjects(directors) {
 
 // Movie list
 exports.movie_list = asyncHandler(async (req, res, next) => {
+  // Allow for filtering the movie list
   const { genre, director, actor } = req.query;
 
   const query = {};
@@ -58,24 +59,29 @@ exports.movie_list = asyncHandler(async (req, res, next) => {
     .slice()
     .sort((a, b) => a.title.localeCompare(b.title));
 
-  const movieCast = [];
-  const movieDirectors = [];
+  // Get the movie IDs to fetch cast and directors
+  const movieIds = sortedMovies.map((movie) => movie._id);
+  const allActors = await Actor.find({ movies: { $in: movieIds } }).exec();
+  const allDirectors = await Director.find({
+    movies: { $in: movieIds },
+  }).exec();
 
-  // loop through the movies and get the cast and director from each one to send to the view
-  for (eachMovie of sortedMovies) {
-    const cast = await getMovieCast(eachMovie);
-    const directors = await getDirectorObjects(eachMovie.director);
-    movieCast.push(cast);
-    movieDirectors.push(directors);
-  }
+  // Sort items alphabetically
+  allDirectors.sort((a, b) => a.name.localeCompare(b.name));
+  allActors.sort((a, b) => a.name.localeCompare(b.name));
+
+  // Map actors and directors to the respective movies
+  const movieCast = sortedMovies.map((movie) =>
+    allActors.filter((actor) => actor.movies.includes(movie._id))
+  );
+
+  const movieDirectors = sortedMovies.map((movie) =>
+    allDirectors.filter((director) => director.movies.includes(movie._id))
+  );
 
   // get all cast, directors and genres to send to the view for filtering
   const allGenres = await Genre.find().exec();
-  const allDirectors = await Director.find().exec();
-  const allActors = await Actor.find().exec();
   allGenres.sort((a, b) => a.name.localeCompare(b.name));
-  allDirectors.sort((a, b) => a.name.localeCompare(b.name));
-  allActors.sort((a, b) => a.name.localeCompare(b.name));
 
   res.render('./movie/movie_list', {
     movies: sortedMovies,
