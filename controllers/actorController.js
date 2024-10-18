@@ -5,22 +5,15 @@ const asyncHandler = require('express-async-handler');
 
 // Display all actors
 exports.actor_list = asyncHandler(async (req, res, next) => {
-  const allActors = await Actor.find().exec();
-  const moviesByActor = [];
+  const allActors = await Actor.find().populate('movies').exec();
+
   // order actors by alphabetical order
   const sortedActors = allActors
     .slice()
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  // loop through all actors in the list to get the movies they feature in
-  for (const actor in sortedActors) {
-    const movie = await getMoviesFeaturing(sortedActors[actor]);
-    moviesByActor.push(movie);
-  }
-
   res.render('./actor/actor_list', {
     actors: sortedActors,
-    movies: moviesByActor,
   });
 });
 
