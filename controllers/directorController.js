@@ -250,16 +250,6 @@ exports.director_delete = asyncHandler(async (req, res, next) => {
 });
 
 // Helper functions
-async function getMoviesFrom(director) {
-  const moviesFromDirector = [];
-  for (const movieId of director.movies) {
-    const movie = await Movie.findById(movieId).exec();
-    moviesFromDirector.push(movie);
-  }
-  moviesFromDirector.sort((a, b) => a.title.localeCompare(b.title));
-  return moviesFromDirector;
-}
-
 async function sortedMovieList() {
   const allMovies = await Movie.find().exec();
   allMovies.sort((a, b) => a.title.localeCompare(b.title));
