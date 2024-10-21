@@ -1,6 +1,10 @@
 <div class="create-page">
   <h1><%= actor ? 'Edit Actor' : 'Create Actor' %></h1>
-  <form id="createEditForm" method="post" onsubmit="handleFormSubmission(event, 'createEditForm')">
+  <form
+    id="createEditForm"
+    method="post"
+    onsubmit="handleFormSubmission(event, 'createEditForm')"
+  >
     <div>
       <label for="first_name">First Name:</label>
       <input
@@ -62,11 +66,16 @@
     </div>
     <div>
       <label for="movies">Movies:</label>
-      <select id="movies" name="movies" multiple>
+      <div id="movies-checkboxes">
         <% movies.forEach(function(movie) { %>
-          <option value="<%= movie._id %>" <%= actor && actor.movies.includes(movie._id) ? 'selected' : '' %>><%= movie.title %></option>
+        <div>
+          <input type="checkbox" id="movie-<%= movie._id %>" name="movies"
+          value="<%= movie._id %>" <%= actor && actor.movies.includes(movie._id)
+          ? 'checked' : '' %> />
+          <label for="movie-<%= movie._id %>"><%= movie.title %></label>
+        </div>
         <% }); %>
-      </select>
+      </div>
     </div>
     <div>
       <label for="password">Enter password:</label>

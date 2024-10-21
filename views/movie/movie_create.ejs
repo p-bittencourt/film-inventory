@@ -1,6 +1,10 @@
 <div class="create-page">
   <h1><%= movie ? 'Edit Movie' : 'Create Movie'%></h1>
-  <form id="createEditForm" method="post" onsubmit="handleFormSubmission(event, 'createEditForm')">
+  <form
+    id="createEditForm"
+    method="post"
+    onsubmit="handleFormSubmission(event, 'createEditForm')"
+  >
     <div>
       <label for="title">Title:</label>
       <input
@@ -41,25 +45,35 @@
       />
     </div>
     <div>
-      <label for="genre">Genre:</label>
-      <select id="genre" name="genre" multiple>
+      <label for="genres">Genres:</label>
+      <div id="genres-checkboxes">
         <% genres.forEach(function(genre) { %>
-          <option value="<%= genre._id %>" <%= movie && movie.genre.includes(genre._id) ? 'selected' : '' %>><%= genre.name %></option>
+        <div>
+          <input type="checkbox" id="genre-<%= genre._id %>" name="genres"
+          value="<%= genre._id %>" <%= movie && movie.genre.includes(genre._id)
+          ? 'checked' : '' %> />
+          <label for="genre-<%= genre._id %>"><%= genre.name %></label>
+        </div>
         <% }); %>
-      </select>
+      </div>
     </div>
     <div>
       <label for="director">Director:</label>
-      <select id="director" name="director" multiple>
+      <div id="director-checkboxes">
         <% directors.forEach(function(director) { %>
-          <option value="<%= director._id %>" <%= movie && movie.director.includes(director._id) ? 'selected' : '' %>><%= director.name %></option>
+        <div>
+          <input type="checkbox" id="director-<%= director._id %>"
+          name="director" value="<%= director._id %>" <%= movie &&
+          movie.director.includes(director._id) ? 'checked' : '' %> />
+          <label for="director-<%= director._id %>"><%= director.name %></label>
+        </div>
         <% }); %>
-      </select>
+      </div>
     </div>
     <div>
       <label for="password">Enter password:</label>
       <input type="password" name="password" id="password" required />
       <button type="submit"><%= movie ? 'Update' : 'Create' %></button>
     </div>
-  </form>  
+  </form>
 </div>
