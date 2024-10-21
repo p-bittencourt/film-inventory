@@ -53,67 +53,64 @@ exports.movie_list = asyncHandler(async (req, res, next) => {
     }
   }
 
-  // get all movies from the db
+  // Get all movies from the db
   const filteredMovies = await Movie.find(query)
     .populate('genre director')
     .exec();
 
-  // order movies alhabetically
+  // Sort movies alhabetically
   const sortedMovies = filteredMovies
     .slice()
     .sort((a, b) => a.title.localeCompare(b.title));
 
-  // Get the movie IDs to fetch cast and directors
-  const movieIds = sortedMovies.map((movie) => movie._id);
-  const allActors = await Actor.find({ movies: { $in: movieIds } }).exec();
-  const allDirectors = await Director.find({
-    movies: { $in: movieIds },
-  }).exec();
-
-  // Sort items alphabetically
-  allDirectors.sort((a, b) => a.name.localeCompare(b.name));
+  // Fetch all registered actors and sort alphabetically
+  const allActors = await Actor.find().exec();
   allActors.sort((a, b) => a.name.localeCompare(b.name));
 
-  // Map actors and directors to the respective movies
+  // Map actors and directors to their respective movies
   const movieCast = sortedMovies.map((movie) =>
     allActors.filter((actor) => actor.movies.includes(movie._id))
   );
 
-  const movieDirectors = sortedMovies.map((movie) =>
-    allDirectors.filter((director) => director.movies.includes(movie._id))
-  );
-
-  // get all cast, directors and genres to send to the view for filtering
+  // Fetch and sort genres for filtering
   const allGenres = await Genre.find().exec();
   allGenres.sort((a, b) => a.name.localeCompare(b.name));
 
+  // Fetch and sort directors for filtering
+  const allDirectors = await Director.find().exec();
+  allDirectors.sort((a, b) => a.name.localeCompare(b.name));
+
+  // Render the page
   res.render('./movie/movie_list', {
     movies: sortedMovies,
     cast: movieCast,
-    movieDirectors: movieDirectors,
-    allGenres: allGenres,
-    allDirectors: allDirectors,
-    allActors: allActors,
+    movieDirectors: sortedMovies.map((movie) => movie.director),
+    allGenres,
+    allDirectors,
+    allActors,
   });
 });
 
 // Movie detail
 exports.movie_detail = asyncHandler(async (req, res, next) => {
-  const movie = await Movie.findById(req.params.id).exec();
-  const actors = await Actor.find().exec();
-  const cast = await getMovieCast(movie);
-  const genres = await getGenreObjects(movie.genre);
-  const directors = await getDirectorObjects(movie.director);
+  // Fetch the movie and populate genres and directors
+  const movie = await Movie.findById(req.params.id)
+    .populate('genre director')
+    .exec();
+  // Fetch the movie cast
+  const cast = await Actor.find({ movies: movie._id }).exec();
 
-  const availableActors = actors.filter(
+  const allActors = await Actor.find().exec();
+
+  const availableActors = allActors.filter(
     (actor) => !cast.some((castActor) => castActor.id === actor.id)
   );
 
   res.render('./movie/movie_detail', {
-    movie: movie,
-    directors: directors,
-    cast: cast,
-    genres: genres,
+    movie,
+    directors: movie.director,
+    cast,
+    genres: movie.genre,
     actors: availableActors,
   });
 });
