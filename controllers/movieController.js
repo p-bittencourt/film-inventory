@@ -291,16 +291,29 @@ exports.movie_update_post = [
 // Movie delete
 exports.movie_delete = asyncHandler(async (req, res, next) => {
   const movieId = req.params.id;
-  await Actor.updateMany(
-    { movies: movieId },
-    { $pull: { movies: movieId } }
-  ).exec();
-  await Director.updateMany(
-    { movies: movieId },
-    { $pull: { movies: movieId } }
-  ).exec();
 
+  // To ensure that either all references get deleted or none do,
+  // We could use a MongoDB transaction, however, the free tier for this exercise doesn't support it.
+  // So we won't implement transaction handling.
+  // const session = await mongoose.startSession();
+  // session.startTransaction();
+
+  // Remove movie references from actors and directors in parallel
+  await Promise.all([
+    Actor.updateMany(
+      { movies: movieId },
+      { $pull: { movies: movieId } }
+    ).exec(),
+    Director.updateMany(
+      { movies: movieId },
+      { $pull: { movies: movieId } }
+    ).exec(),
+  ]);
+
+  // Delete the movie
   await Movie.findByIdAndDelete(movieId);
+
+  // Redirect to the movies list page
   res.redirect('/movies');
 });
 
