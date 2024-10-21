@@ -194,15 +194,11 @@ exports.movie_create_post = [
       // Data is valid. Save actor
       await movie.save();
       // Assign director to the movie
-      if (directorIds.length) {
-        for (const directorId in directorIds) {
-          const director = await Director.findById(directorIds[directorId]);
-          if (!director.movies.includes(movie._id)) {
-            director.movies.push(movie._id);
-            await director.save();
-          }
-        }
-      }
+      await Director.updateMany(
+        { _id: { $in: directorIds } },
+        { $addToSet: { movies: movie._id } }
+      ).exec();
+
       res.redirect(movie.url);
     }
   }),
@@ -279,27 +275,38 @@ exports.movie_update_post = [
         errors: errors.array(),
       });
       return;
-    } else {
-      // Data is valid. Save actor
-      const updatedMovie = await Movie.findByIdAndUpdate(
-        req.params.id,
-        movie,
-        {}
-      );
-
-      // Assign director to the movie
-      if (directorIds.length) {
-        for (const directorId in directorIds) {
-          const director = await Director.findById(directorIds[directorId]);
-          if (!director.movies.includes(movie._id)) {
-            director.movies.push(movie._id);
-            await director.save();
-          }
-        }
-      }
-
-      res.redirect(updatedMovie.url);
     }
+
+    // Data is valid.
+    // Handle synchronization between director and movie objects
+    const existingMovie = await Movie.findById(req.params.id).exec();
+    const currentDirectorIds = existingMovie.director.map((director) =>
+      director.toString()
+    );
+
+    // Find directors that were removed and remove movie reference in the director object
+    const removedDirectors = currentDirectorIds.filter(
+      (id) => !directorIds.includes(id)
+    );
+    if (removedDirectors.length) {
+      await Director.updateMany(
+        { _id: { $in: removedDirectors } },
+        { $pull: { movies: req.params.id } }
+      ).exec();
+    }
+
+    const updatedMovie = await Movie.findByIdAndUpdate(
+      req.params.id,
+      movie,
+      {}
+    );
+
+    await Director.updateMany(
+      { _id: { $in: directorIds } },
+      { $addToSet: { movies: movie._id } }
+    ).exec();
+
+    res.redirect(updatedMovie.url);
   }),
 ];
 

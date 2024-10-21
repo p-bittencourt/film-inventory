@@ -212,6 +212,23 @@ exports.director_update_post = [
       return;
     }
 
+    // Handling synchronization between director and movie objects
+    const existingDirector = await Director.findById(req.params.id).exec();
+    const currentMovieIds = existingDirector.movies.map((movie) =>
+      movie.toString()
+    );
+
+    // Find the movies that were removed from the director list and remove reference on movie object
+    const removedMovies = currentMovieIds.filter(
+      (id) => !movieIds.includes(id)
+    );
+    if (removedMovies.length) {
+      await Movie.updateMany(
+        { _id: { $in: removedMovies } },
+        { $pull: { director: req.params.id } }
+      ).exec();
+    }
+
     // Data is valid. Update the director
     await Director.findByIdAndUpdate(req.params.id, {
       first_name,
