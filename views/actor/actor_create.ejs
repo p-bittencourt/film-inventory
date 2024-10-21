@@ -1,6 +1,6 @@
 <div class="create-page">
   <h1><%= actor ? 'Edit Actor' : 'Create Actor' %></h1>
-  <form method="post">
+  <form id="createEditForm" method="post" onsubmit="handleFormSubmission(event, 'createEditForm')">
     <div>
       <label for="first_name">First Name:</label>
       <input
@@ -69,6 +69,8 @@
       </select>
     </div>
     <div>
+      <label for="password">Enter password:</label>
+      <input type="password" name="password" id="password" required />
       <button type="submit"><%= actor ? 'Update' : 'Create' %></button>
     </div>
   </form>
