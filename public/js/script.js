@@ -2,7 +2,7 @@ function showPasswordField() {
   document.getElementById('deleteForm').style.display = 'inline';
 }
 
-async function handleDelete(event) {
+async function handleFormSubmission(event, formId) {
   event.preventDefault();
 
   const password = document.getElementById('password').value;
@@ -16,7 +16,7 @@ async function handleDelete(event) {
 
   const result = await response.json();
   if (result.success) {
-    event.target.submit();
+    document.getElementById(formId).submit();
   } else {
     alert('Incorrect password');
   }

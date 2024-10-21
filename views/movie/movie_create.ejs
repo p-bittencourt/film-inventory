@@ -1,6 +1,6 @@
 <div class="create-page">
   <h1><%= movie ? 'Edit Movie' : 'Create Movie'%></h1>
-  <form method="post">
+  <form id="createEditForm" method="post" onsubmit="handleFormSubmission(event, 'createEditForm')">
     <div>
       <label for="title">Title:</label>
       <input
@@ -57,6 +57,8 @@
       </select>
     </div>
     <div>
+      <label for="password">Enter password:</label>
+      <input type="password" name="password" id="password" required />
       <button type="submit"><%= movie ? 'Update' : 'Create' %></button>
     </div>
   </form>  

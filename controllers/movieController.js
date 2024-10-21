@@ -281,7 +281,7 @@ exports.movie_update_post = [
 
     await Director.updateMany(
       { _id: { $in: directorIds } },
-      { $addToSet: { movies: movie._id } }
+      { $addToSet: { movies: req.params.id } }
     ).exec();
 
     res.redirect(updatedMovie.url);
