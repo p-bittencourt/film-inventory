@@ -6,29 +6,6 @@ const { body, validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 
 // Helper function
-async function getMovieCast(movie) {
-  const cast = await Actor.find({ movies: movie._id }).exec();
-  return cast.sort((a, b) => a.name.localeCompare(b.name));
-}
-
-async function getGenreObjects(genres) {
-  const genreObjects = [];
-  for (const genre in genres) {
-    const genreObject = await Genre.findById(genres[genre]).exec();
-    genreObjects.push(genreObject);
-  }
-  return genreObjects;
-}
-
-async function getDirectorObjects(directors) {
-  const directorObjects = [];
-  for (const director in directors) {
-    const directorObject = await Director.findById(directors[director]).exec();
-    directorObjects.push(directorObject);
-  }
-  return directorObjects;
-}
-
 function getDirectorIds(director) {
   return Array.isArray(director) ? director : director ? [director] : [];
 }
@@ -251,27 +228,24 @@ exports.movie_update_post = [
     // Get director ids from the form
     let directorIds = getDirectorIds(director);
 
-    const movie = new Movie({
-      title,
-      release_date,
-      summary,
-      picture,
-      genre: Array.isArray(genre) ? genre : genre ? [genre] : [],
-      director: directorIds,
-      _id: req.params.id,
-    });
-
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitzed value/errors messages.
       const allGenres = await Genre.find().exec();
       const allDirectors = await Director.find().exec();
-      res.render('./movie/movie_create', {
-        movie: movie,
+      return res.render('./movie/movie_create', {
+        movie: {
+          title,
+          release_date,
+          summary,
+          picture,
+          genre: Array.isArray(genre) ? genre : genre ? [genre] : [],
+          director: directorIds,
+          _id: req.params.id,
+        },
         genres: allGenres,
         directors: allDirectors,
         errors: errors.array(),
       });
-      return;
     }
 
     // Data is valid.
@@ -294,9 +268,16 @@ exports.movie_update_post = [
 
     const updatedMovie = await Movie.findByIdAndUpdate(
       req.params.id,
-      movie,
-      {}
-    );
+      {
+        title,
+        release_date,
+        summary,
+        picture,
+        genre: Array.isArray(genre) ? genre : genre ? [genre] : [],
+        director: directorIds,
+      },
+      { new: true }
+    ).exec();
 
     await Director.updateMany(
       { _id: { $in: directorIds } },
