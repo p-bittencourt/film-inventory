@@ -46,7 +46,7 @@
     </div>
     <div>
       <label for="genres">Genres:</label>
-      <div id="genres-checkboxes">
+      <div id="checkboxes">
         <% genres.forEach(function(genre) { %>
         <div>
           <input type="checkbox" id="genre-<%= genre._id %>" name="genres"
@@ -59,7 +59,7 @@
     </div>
     <div>
       <label for="director">Director:</label>
-      <div id="director-checkboxes">
+      <div id="checkboxes">
         <% directors.forEach(function(director) { %>
         <div>
           <input type="checkbox" id="director-<%= director._id %>"

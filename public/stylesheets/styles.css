@@ -622,4 +622,45 @@ main {
 .create-page button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
+
+/* Style the checkboxes container */
+#checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; /* Space between checkboxes */
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  max-height: 300px; /* Limit the height */
+  overflow-y: auto; /* Add vertical scroll if content exceeds max height */
+}
+
+/* Style each checkbox item */
+#checkboxes div {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: var(--main-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#checkboxes div:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+}
+
+/* Style the checkbox input */
+#checkboxes input[type='checkbox'] {
+  margin-right: 0.5rem; /* Space between checkbox and label */
+}
+
+/* Style the checkbox label */
+#checkboxes label {
+  font-weight: bold;
+  color: var(--black);
+}
 /* #endregion */
