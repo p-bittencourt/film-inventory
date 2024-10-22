@@ -16,7 +16,7 @@
       action="/genres/<%= genre.id %>?_method=DELETE"
       method="post"
       style="display: none; margin-top: 10px"
-      onsubmit="handleDelete(event);"
+      onsubmit="handleFormSubmission(event, 'deleteForm');"
     >
       <label for="password">Enter password:</label>
       <input type="password" name="password" id="password" required />
